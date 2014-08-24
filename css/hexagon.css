@@ -54,10 +54,6 @@ left: 50%;
 background: transparent;
 }
 
-div {
-  outline: #FF0000 dotted thin;
-}
-
 body{
   min-width:650px;
 }
