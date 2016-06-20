@@ -9,7 +9,7 @@
 		</h1>
 		You're a programmer who has never built your own website. You think you're pretty smart. Maybe you were always good at math, and got into computer science because algorithms and concepts came easily to you. Scripting comes easily to you. You're great at C and Java and Python and know how to build systems and programs and applications, and maybe you do this for money. Most of all, you love elegant, clean, beautiful code.
 
-		<p>	But building websites has never been easy for you. You've tried before, but various aspects always turn you off and leave your projects abandoned in some long-lost git repo. You vocally hate Javascript. You've read some articles about the drawbacks and idiosyncracies of Javascript, maybe you watched the Destroy All Software talk (https://www.destroyallsoftware.com/talks/wat), and convinced yourself it's ok that you don't like working with the language. Every time you try to build a website, you find yourself lost in a sea of frameworks, and you're downloading React and Angular and Gulp and Lint and webpack and maybe you downloaded Django because you like python, and you're copy-pasting "npm install socket.io" into your terminal without really knowing what you're doing or why you're doing it.
+		<p>	But building websites has never been easy for you. You've tried before, but various aspects always turn you off and leave your projects abandoned in some long-lost git repo. You vocally hate Javascript. You've read some articles about the drawbacks and idiosyncracies of Javascript, maybe you watched the <a href = "https://www.destroyallsoftware.com/talks/wat">Destroy All Software talk</a>, and convinced yourself it's ok that you don't like working with the language. Every time you try to build a website, you find yourself lost in a sea of frameworks, and you're downloading React and Angular and Gulp and Lint and webpack and maybe you downloaded Django because you like python, and you're copy-pasting "npm install socket.io" into your terminal without really knowing what you're doing or why you're doing it.
 
 		<p>	Maybe that's not you. But that was me. If this sounds like you at all, hopefully this experience will help you. If you're already comfortable building websites, then this will be way below you. This is a guide for back-end programmers who want to methodically learn what their front-end programmer friends are talking about. I'm going to try to demystify all the frameworks and libraries and technologies and figure out how to build a lightweight yet fancy web app.
 
@@ -23,11 +23,11 @@
 		</h2>
 		...we're going to start with nothing.
 
-		<p>	I've launched a text editor (using Sublime for now) and I'm typing in everything I want to say. From experience, the first thing I want to do when I embark on a new project is initialize some kind of source control. Especially because I'm on a laptop and not at my home computer right now. So, off to github to create a repo. https://github.com/Ivoirians/hour-a-day
+		<p>	I've launched a text editor (using Sublime for now) and I'm typing in everything I want to say. From experience, the first thing I want to do when I embark on a new project is initialize some kind of source control. Especially because I'm on a laptop and not at my home computer right now. So, off to github to create a <a href="https://github.com/Ivoirians/hour-a-day">repo</a>. 
 
 		<p>	Now, after cloning the repo, we have a working directory and can finally save this file. This is going to be 0.html.
 
-		<p>	I have the most basic of basic html/css knowledge. I kind of feel like for day 0, it would be neat if I just left this as the blankest of blank html pages with no tags at all (NoTags.png), but that wouldn't be an honest hour of progress. So, after adding some basic tags, the page looks like this. (BasicTags.png)
+		<p>	I have the most basic of basic html/css knowledge. I kind of feel like for day 0, it would be neat if I just left this as the blankest of blank html pages with <a href="NoTags.png">no tags at all </a>, but that wouldn't be an honest hour of progress. So, after adding some basic tags, the page looks like <a href="BasicTags.png">this</a>.
 
 		<p>	Immediate questions: How to get the pointy brackets to show up inside html text? What do bona-fide web-developers call those brackets? Alligators? And how do I put line breaks between my paragraphs on an html page?
 
@@ -36,11 +36,11 @@
 
 		<p>	Lines are separated by line breaks ("&lt;br&gt;") or paragraphs (&lt;p&gt;). The paragraphs look nicer, adding two lines rather than one. After adding all these back in, we're done formatting the page for today. There's a long, daunting task in front of me to make this page aesthetically pleasing, but the inexorable passage of time (60 minutes per day) will assuredly make short work of it.
 
-		<p>	Second immediate question: How do I format all these &lt;p&gt; tags on my html page? They're so ugly like this. Answer: Let's look at the source file of any website on the planet. Aha, we put them at the beginning of the paragraphs. Done. 
+		<p>	Second immediate question: How do I format all these &lt;p&gt; tags on my html page? They're so ugly like <a href="UglyPTags.png">this</a>. Answer: Let's look at the source file of any website on the planet. Aha, we put them at the beginning of the paragraphs. Done. 
 
 		<h3> Hosting </h3>
 
-		<p>	The main goal of today is to get this page online. Now, I've run this gauntlet before. I'd spun up a cluster with DigitalOcean (a cloud server provider, where a cheap "droplet" runs $5 a month and I'd received $100 in credit as a student from the GitHub Student Developer Pack (https://education.github.com/pack)), bought a host-name (also free, actually), got passingly familiar with Apache Tomcat and nginx, spent a month working with Django and copying css examples from StackOverflow, and hosted a tiny static website. Eventually, I willfully forgot the password to the server so I wouldn't have to think about looking at the ugly thing.
+		<p>	The main goal of today is to get this page online. Now, I've run this gauntlet before. I'd spun up a cluster with DigitalOcean (a cloud server provider, where a cheap "droplet" runs $5 a month and I'd received $100 in credit as a student from the <a href="https://education.github.com/pack">GitHub Student Developer Pack</a>), bought a host-name (also free, actually), got passingly familiar with Apache Tomcat and nginx, spent a month working with Django and copying css examples from StackOverflow, and hosted a tiny static website. Eventually, I willfully forgot the password to the server so I wouldn't have to think about looking at the ugly thing.
 
 		<p> Of course, there are thousands of different ways to run a website. Most importantly (in my ill-informed opinion) is the HTTP server--you need something that actually communicates with the internet. Something that responds when someone types "www.your-website.com" into their browser. Now, if your webpage is static, there are many many easier options. Static pages are essentially pages that don't any communication with your server. If your server isn't doing any processing, and your website is just showing some text and pictures, you have some easier options for hosting. The reason this is easier is that many companies are willing to host your static websites for free, because all they do when someone asks for your page is sends them the page you've created. The server they provide doesn't need to run any of your back-end code.
 
@@ -49,6 +49,14 @@
 		<p> Basically, anything we put in the repo "ivoirians.github.io" will be hosted. We already created a repo, so we're going to add the "ivoirians.github.io" repo as a remote branch, so that hopefully it will mirror the new site we're making. Unfortunately, I already put stuff in the github.io repo when I played with hosting pages years ago, but I'll just throw that garbage into a branch.
 
 		A "git remote add" and a "git push" later, and this website should be online.
+
+		<h2> End Day 0 </h2>
+
+		<p> We're up and live. I screwed up the git stuff, since now we have two repos that are functionally identical, except only one is being hosted by Github, and that same one has an ugly history of the remnants of an ancient CSS battle. It has been an hour, though, and tomorrow we'll figure out how to make Github host my second, clean, pure of heart repo.
+
+		<p> I'll have to stop using static pages sooner than expected--how am I going to learn how to use Node/npm if I don't even have my own server? That DigitalOcean cluster will come into play sooner than expected, and maybe I don't need to worry about the Github Pages hosting idiosyncracies. It'll work until I get some more stuff up and running.
+
+		<p> Maybe we'll never end up on <a href="awwwards.com">awwwards</a>. But we're going to build efficient workflows, and we're going to figure out which webdev frameworks are useful in which contexts, and (as a tertiary goal) we're going to learn how to make websites that don't look god-awful. And it all starts tomorrow (not today).
 
 	</body>
 </html>
