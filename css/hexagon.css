@@ -1,0 +1,156 @@
+.hexagon {
+  float:left;
+  width: 104px;
+  height: 60px;
+  background: blue;
+  position: relative;
+  margin-left: 13px;
+  margin-right: 13px;
+  margin-top:30px;
+}
+.hexagon:before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 52px solid transparent;
+  border-right: 52px solid transparent;
+  border-bottom: 30px solid blue;
+}
+.hexagon:after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 52px solid transparent;
+  border-right: 52px solid transparent;
+  border-top: 30px solid blue;
+}
+
+.row {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 62.5rem;
+   }
+
+
+.outerwrap {
+position: relative;
+overflow: hidden;
+height: 120px;
+}
+
+.container {
+float: left;
+position: relative;
+left: 50%;
+background: transparent;
+}
+
+body{
+  min-width:650px;
+}
+
+.hex-row {
+    float: left;
+    position: relative;
+    left: -50%;
+}
+.hex-row.even {
+    left: -50%;
+}
+.hex-row.center {
+  left: -50%;
+    clear: left;
+}
+
+.hexagon.sheep {
+  background: #B2D234;
+}
+
+.hexagon.sheep:before {
+  border-bottom: 30px solid #B2D234;
+}
+
+.hexagon.sheep:after {
+  border-top: 30px solid #B2D234;
+}
+
+.hexagon.brick {
+  background: #EE3E2C;
+}
+
+.hexagon.brick:before {
+  border-bottom: 30px solid #EE3E2C;
+}
+
+.hexagon.brick:after {
+  border-top: 30px solid #EE3E2C;
+}
+
+.hexagon.ore {
+  background: #8B8D90;
+}
+
+.hexagon.ore:before {
+  border-bottom: 30px solid #8B8D90;
+}
+
+.hexagon.ore:after {
+  border-top: 30px solid #8B8D90;
+}
+
+.hexagon.wheat {
+  background: #FFE342;
+}
+
+.hexagon.wheat:before {
+  border-bottom: 30px solid #FFE342;
+}
+
+.hexagon.wheat:after {
+  border-top: 30px solid #FFE342;
+}
+
+.hexagon.wood {
+  background: #507720;
+}
+
+.hexagon.wood:before {
+  border-bottom: 30px solid #507720;
+}
+
+.hexagon.wood:after {
+  border-top: 30px solid #507720;
+}
+
+.hexagon.desert {
+  background: #FFF9BD;
+}
+
+.hexagon.desert:before {
+  border-bottom: 30px solid #FFF9BD;
+}
+
+.hexagon.desert:after {
+  border-top: 30px solid #FFF9BD;
+}
+
+.hexagon:hover{
+  background-color:#00AE8D;
+}
+
+.hexagon:hover:before {
+  border-bottom: 30px solid #00AE8D;
+}
+
+.hexagon:hover:after {
+  border-top: 30px solid #00AE8D;
+}
