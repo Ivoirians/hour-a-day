@@ -1,0 +1,12 @@
+body {
+    background-color: lightgrey;
+}
+
+h1 {
+	text-align:center;
+}
+
+p {
+    font-family:"Georgia";
+    font-size:"12pt";
+}
