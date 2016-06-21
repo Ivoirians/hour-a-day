@@ -1,0 +1,74 @@
+<html><head>
+	<link rel="stylesheet" href="1.css"></link>
+</head><body>
+		<title>	Day 1 </title>
+
+		<p>	<h1> Day 1 </h1>
+
+		<p> A rough roadmap for the future: this is a short but ambitious list of things I'd like to get to build with eventually:
+
+		<li>Node</li>
+		<li>React</li>
+		<li>Angular</li>
+		<li>JQuery</li>
+		<li>Polymer</li>
+		<li>Web Components</li>
+
+		<p> An unfortunate list of things I'll need to do before then--which we can easily anticipate will take me many, many one-hour sessions:
+
+		<li> Host site on a real server </li>
+		<li> Make the site look nicer </li>
+		<li> Streamline a development workflow </li>
+
+		<p> And each of these three is competing for my immediate attention with roughly equivalent urgency. It reminds me of a tech tree. If I host the site, I'll quickly broaden the possible "cool things" we can do with the site, and probably better approximate a real web development workflow, but it'd open me up to a host of new concerns and problems and also probably take the most time out of the three urgent options. If I make the site look nicer, I won't feel as ashamed each time I preview my page, but this isn't really supposed to be a web design blog. And if I hash out an efficient workflow early on, life will be great--but what if my needs change immediately? How do I start working on a long-term workflow if I haven't decided upon my actual work environment yet?
+
+		<p> All said and done, the choice is clear to me. I'm going to create a workflow first, because in tech tree terms, it should make every other technological advancement that much faster.
+
+		<p> <h2> Workflow Beginnings </h2>
+
+		<p> I keep saying "workflow" with only a faint idea of what I'm saying. I have a basic idea that a simple web development process might look like:
+
+		<li>Make changes to source files</li>
+		<li>Run some sort of pre-processor/compiler/post-processor (Javascript/Typescript/Coffeescript/Bananascript/Sass/Less/Gulp/?????)</li>
+		<li>Preview changes (using a browser?)</li>
+		<li>Deploy changes to server (git?)</li>
+
+		<p> My current workflow is Sublime -&gt; Nothing -&gt; Open file in Chrome -&gt; Push to github. On one hand, learning to use the processing tools feels like what I should familiarize myself with, since it's the biggest "missing gap" in my current workflow. On the other hand, I saw a talk called <a href="https://www.youtube.com/watch?v=sGsA7oKoQhI">The 2016 Web Developer Workflow</a>, the crux of which was that whereas developers have created all these tools for getting around the shortcomings of the web platform, the platform has really come a long way, and maybe we wouldn't need that many CSS or Javascript compilers to do simple things anymore because native ES2016 and browsers support those things themselves.
+
+		<p> Of course, the primary consideration is that I don't have any need for processing beyond my text editor yet. So let's focus on that today.
+
+		<h3> Sublime </h3>
+
+		<p> I don't pay for Sublime.
+
+		<p> <a href="https://www.sublimetext.com/">Sublime</a> is a nifty text editor. I've used it for years, gotten familiar with some of the tricks and shortcuts, and regularly use it for tasks that I might otherwise have to write scripts for. Regex search/replaces and multi-line/cursor editing make certain tasks, like extracting IDs/names from an XML document and generating a line of code for each ID, a piece of cake. Plus it has a neat little built-in Python interpreter.
+
+		<p> Many front-end programmers that I know use Sublime. I think ultimately there's not a massive difference between code-editors--you can be an efficient coder with Sublime, Atom, Notepad++, Visual Code, anything with syntax-highlighting. I've gotten used to Sublime, so I'll be using it.Plus, it has a nice extension/package system.
+
+		<p> I'll be looking for extensions/tricks to help with writing front-end code. Right now, I hate HTML tags. Adding an &lt;a href&gt; or those &lt;li&gt; tags is a bit of a pain because my text needs to be surrounded. If I can find something to make that easy, I'll be happy today. Looking down the road, I'll probably need some extensions to help with the Javascript/CSS parts of web design.
+
+		<p> It may be no surprise that I immediately stumbled upon an extension called <a href="https://packagecontrol.io/packages/Emmet">Emmet</a>. With a simple Ctrl-W on OSX, I can wrap any of my text in tags. There are also tons of useful little enhancements, but that by far was the main thing I wanted to start off with. This is excellent. I'm usually on Windows, but I've decided to start off this project on OSX for the sake of Unix.
+
+		<p> Secondly, Sublime has an Open in Browser shortcut if you right click a saved file. I know there are browser extensions that monitor/poll for changes to a file which can also track live edits, but I like being able to manually control/trigger the updates. After adding this Sublime shortcut to a keyboard command, I can do everything in my workflow from the Sublime window, except deployment. And that's not exactly hard to add, but for now it's not exactly a pain to switch to my terminal when I want to call it a day.
+
+		<p> I would call it a day today, but we've still got some time, and I'm dying to make this page look less ugly. So let's move on to
+
+		<h2> Design </h2>
+
+		<p> I've always been driven to create something aesthetically pleasing. Unfortunately, I don't have an artistic bone in my body. Besides Legos, K'NEX, and The Sims, all of my creative pursuits (like sketching, or composing music, or 3D modeling) have ended in frustration and failure. And of course, being a computer-savvy individual, I've thought on multiple occasions that "hey, I must be able to learn to make cool-looking webpages!" But CSS turned out to be much harder than watercoloring. I've never had to spend two hours struggling to center a box inside another box or make a hexagon-shape with watercolors. (Disclaimer, I've never picked up a watercoloring brush in my life).
+
+		<p> This time will be different. I plan on including a CSS stylesheet with each day's page, so I can gradually follow the "evolution" of my page's look. We'll be able to look back and laugh upon the days when the page looked like this. (I don't know what the page looks like at the end of today yet, since I haven't done it yet). But of course, that means we need to go back to...
+
+		<h3> Design Workflow </h3>
+		<p>We're going to need some way to start each day's work with a template/boilerplate code. I'm creating a <a href="../bare_template.html">template page</a> which will be copied into each day's workspace, and then I'm going to write an initialization script which copies the template and the previous day's CSS page into the day's folder. The CSS should improve incrementally each day, while the HTML may change drastically. That's the hope, at least.
+
+		<p> The script can be found <a href="../startTheDay.py">here</a>. I accidentally deleted this entire page when I ran the script, because it overwrote everything in my html file with the template. Good times. Both the script and the bare template will probably change day-to-day as I update it, which breaks my "keep a record of everything" paradigm, but if you want to see the progress on those everything should be checked into <a href="https://github.com/Ivoirians/hour-a-day">Git</a>.
+
+		<p> With that, we can get back to...
+
+		<h3> Actual Design </h3>
+
+		<p> As previously mentioned, I don't know how to design my way out of a wet paper bag. I'm changing the background color and the font for now (I like Georgia). We're overtime today, so I'll continue this tomorrow. The plan? Build a stock market analysis tool.
+
+		
+</body></html>
