@@ -17,6 +17,8 @@ def main(argv=None):
 		src.replace('{today}', str(days))
 		with open("{0}/{0}.html".format(days), 'w') as dest:
 			dest.write(src)
+	with open("index.html", 'a') as indexFile:
+		indexFile.write("<br><a href=\"{0}/{0}.html\">{0}</a>\n".format(days))
 
 	shutil.copyfile("{0}/{0}.css".format(int(days) - 1), "{0}/{0}.css".format(days))
 
