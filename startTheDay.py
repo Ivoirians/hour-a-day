@@ -16,7 +16,6 @@ def main(argv=None):
     with open("bare_template.html", 'r') as template:
         src = template.read()
         src = src.replace('{today}', days)
-        print src
         with open("{0}/{0}.html".format(days), 'w') as dest:
             dest.write(src)
     with open("index.html", 'a') as indexFile:
