@@ -1,63 +1,48 @@
 <html>
 <head>
   <link rel="stylesheet" href="2.css">
-  <script>
-	function loadFile(blob)
-	{
-		console.log("Not implemented yet.")
-	}
-
-	function initializeMap()
-	{
-		var file = null;
-		var xhr = new XMLHttpRequest()
-		xhr.open("GET", "table.csv")
-		xhr.responseType = "blob"
-		xhr.onload = function() 
-		{
-		    blob = xhr.response
-		    loadFile(blob)
-		}
-		xhr.send()
-  	}
-
-  	initializeMap()	
-
-  	function computeAverageAnnualReturn()
-  	{
-  		document.getElementById("submit-button").innerHTML="This button does nothing.";
-  	}
-  </script>
+  <script src="2.js"></script>
 
 </head>
 	<body>
 		<title>Day 2</title>
 		<h1> Day 2 </h1>
 
-		<p> Some time this week I'll make some mockups of how I'd like the site to look. I'll have a barebones static version and a version with some neater features (like a comment section, and a--well, a comment section is the only thing that comes to mind.) But as I mentioned yesterday, I'd like to exercise my programming chops and build out this site so it's more than just a blog. And that means we need to write some client-side code.
+		<p> Some time this week I'll make some mockups of how I'd like the site to look. I'll have a barebones static version and a version with some neater features (like a comment section, and a--well, a comment section is the only thing that comes to mind.) But as I mentioned yesterday, I'd like to exercise my programming chops and build out this site so it's more than just a blog. And that means we need to write some client-side code. </p>
 
 		<h2> Stock Market Analysis </h2>
-		<p>I've always been intrigued by the claim that the NYSE gives an annual return of 7% each year. Maybe if you average the percent change each year, like if the changes over five years are -4%, -1%, 6%, 12%, 19%, then you average the numbers and get 7%. Or maybe you look at the stock market index price a hundred years ago, and the price now, and compute what exponential function fits those two points. Honestly, this latter measurement is (in my non-expert opinion) a better one, since everyone is eager to plug (1.07)^n years into a calculator to find out what you should expect your growth to be in n years. So five years at 7 percent would be (1.07)^5 = 1.40, a 40 percent return. Meanwhile, in a real-world volatile market like the five year example above, your actual growth would be (0.96)(0.99)(1.06)(1.12)(1.19) = 1.34. So it matters which measure we use.
+		<p>I've always been intrigued by the claim that the NYSE gives an annual return of 7% each year. Maybe if you average the percent change each year, like if the changes over five years are -4%, -1%, 6%, 12%, 19%, then you average the numbers and get 7%. Or maybe you look at the stock market index price a hundred years ago, and the price now, and compute what exponential function fits those two points. Honestly, this latter measurement is (in my non-expert opinion) a better one, since everyone is eager to plug (1.07)^n years into a calculator to find out what you should expect your growth to be in n years. So five years at 7 percent would be (1.07)^5 = 1.40, a 40 percent return. Meanwhile, in a real-world volatile market like the five year example above, your actual growth would be (0.96)(0.99)(1.06)(1.12)(1.19) = 1.34. So it matters which measure we use. </p>
 
-		<p> Note to self: New priority is to figure out how to display LaTeX on these pages. 
+		<p> Note to self: New priority is to figure out how to display LaTeX on these pages.  </p>
 
-		<p> Anyway. The idea for the tool is to allow a user to specify a start date (when they put their money into the market) and an end date (when they pull it out), and to calculate the net annual return and the annual average. Using this, we could generate some random sample intervals (either totally random, or maybe 20-50 year lengths of time to mock a retirement account's lifetime), and figure out if it makes sense to use the 7% number to compute your expected retirement savings. That's the crux of it.
+		<p> Anyway. The idea for the tool is to allow a user to specify a start date (when they put their money into the market) and an end date (when they pull it out), and to calculate the net annual return and the annual average. Using this, we could generate some random sample intervals (either totally random, or maybe 20-50 year lengths of time to mock a retirement account's lifetime), and figure out if it makes sense to use the 7% number to compute your expected retirement savings. That's the crux of it. </p>
 
-		<p>First, we need a dataset. I've pulled the daily GSPC opening and closing data from <a href="https://finance.yahoo.com/q/hp?s=%5EGSPC+Historical+Prices">Yahoo Finance</a> and saved it <a href="table.csv">here</a>.	GitHub Pages has a 1GB limit, so this 1.2 MB should be no cause for complaint.
+		<p>First, we need a dataset. I've pulled the daily GSPC opening and closing data from <a href="https://finance.yahoo.com/q/hp?s=%5EGSPC+Historical+Prices">Yahoo Finance</a> and saved it <a href="table.csv">here</a>.	GitHub Pages has a 1GB limit, so this 1.2 MB should be no cause for complaint. </p>
 
-		<p>Next, some kind of UI. I envisioned a graph with a sliding start and end pointer to spit out real-time numbers, but that may have to wait until another day. For now, we'll have some buttons and a couple of labels for output. Sad, I know, but I'm learning Javascript for (basically) the first time here. However, we still should be able to try something nifty. There are some neat Polymer datepicker web components, but setting up Polymer (as quick as that might be) has to wait for another day, so instead we'll try using the HTML5 input type, "date".
+		<p>Next, some kind of UI. I envisioned a graph with a sliding start and end pointer to spit out real-time numbers, but that may have to wait until another day. For now, we'll have some buttons and a couple of labels for output. Sad, I know, but I'm learning Javascript for (basically) the first time here. However, we still should be able to try something nifty. There are some neat Polymer datepicker web components, but setting up Polymer (as quick as that might be) has to wait for another day, so instead we'll try using the HTML5 input type, "date". </p>
+		<center>
+			<div id="stock-market-widget">
+				<p> <input type="date" name = "start" min="1950-01-03" max="2016-06-20"></input> </p>
+				<p> <input type="date" name = "end" min="1950-01-03" max="2016-06-20"></input> </p>
+				
+				<p><button id="submit-button" onclick="computeAverageAnnualReturn()">Click me</button> </p>
+				
+				<p><textarea>Results will eventually go here.</textarea> </p>
+			</div>
+		</center>
 
-		<p> <input type="date" name = "start" min="1950-01-03" max="2016-06-20">
-		<p> <input type="date" name = "end" min="1950-01-03" max="2016-06-20">
+		<p> Small aside--I have zero plans to make this site backwards-compatible. If you're using old versions of Internet Explorer or Netscape, I apologize, but you are not my target demo. (The implication is that I have a target demo.)</p>
 
-		<p><button id="submit-button" onclick="computeAverageAnnualReturn()">Click me</button>
+		<p>All that's left to do is to write the script. I think it's telling that the first bit of Javascript I google for, "how to load a csv table in Javascript", the first answer of the first StackOverflow question is "use jQuery". Besides being a cop-out, I think it'd be silly if, in my effort to develop my own skills, I resort to copy-pasting code. I want to write every line and understand what every line I write does. So we're going to write a good ol' fashioned file iterator. Javascript is just like Python, right? </p>
 
-		<p><textarea>Results will eventually go here.</textarea>
+		<p> I ended up copying <a href="UnfinishedScripts.png">code</a> anyway, but at least it was code is more or less straightforward. Without using Node.js, jQuery, or some other fancy library, the neatest way to pull a file is to pull it out of an HttpResponse. Unfortunately, I hit the following <a href="Error.png">error</a>, which essentially says "Set up an Http Server, you twat." </p>
 
-		<p> Small aside--I have zero plans to make this site backwards-compatible. If you're using old versions of Internet Explorer or Netscape, I apologize, but you are not my target demo. 
+		<p> In order to continue putting off the inevitable, for development purposes I can run a lightweight HTTP server from python with the command: </p>
 
-		<p>All that's left to do is to write the script. I think it's telling that the first bit of Javascript I google for, "how to load a csv table in Javascript", the first answer of the first StackOverflow question is "use jQuery". Besides being a cop-out, I think it'd be silly if, in my effort to develop my own skills, I resort to copy-pasting code. I want to write every line and understand what every line I write does. So we're going to write a good ol' fashioned file iterator. Javascript is just like Python, right?
+		<center>
+			<code>python -m SimpleHTTPServer</code>
+		</center>
 
-		<p> I ended up copying <a href="UnfinishedScripts.png">code</a> anyway, but at least it was code I could (sort of) understand. Without using Node.js, jQuery, or some other fancy library, the neatest way to pull a file is to pull it out of an HttpResponse. Unfortunately, I hit the following <a href="Error.png">error</a>, which essentially says "Set up an Http Server, you twat." Maybe tomorrow.
+		<p>and we're off to the races.</p>
 
-		<p> That's where we'll call it for the day. I realize that typing this occupies a significant portion of my hour per day, so maybe I'll start spending 90 minutes per day and allot 30 minutes to typing this up. I've been more productive in two hours than the previous 18 months combined, so I'd like to say this looks to be very helpful so far.
+		<p>It's time to get down and dirty with Javascript. Unfortunately, we're low on time and all I did instead was play a little with the CSS of the page. If I do say so myself, it no longer looks god-awful. Plus, we're on day 2 and everything is still perfectly multi-platform and responsive. Tomorrow I'll flesh out the analysis tool.</p>

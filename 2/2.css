@@ -1,5 +1,5 @@
 body {
-    background-color: lightgrey;
+    background-color: #F0F0F0;
 }
 
 h1 {
@@ -9,4 +9,17 @@ h1 {
 p {
     font-family:"Georgia";
     font-size:"12pt";
+}
+
+code {
+	background: hsl(220, 80%, 90%);
+	text-align: center;
+}
+
+#stock-market-widget {
+	background-color: #D6D6D6;
+	position:relative;
+	width:80%;
+	padding:10px;
+	border:solid black 2px;
 }
