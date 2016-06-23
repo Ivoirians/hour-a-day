@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Day 3</title>
@@ -6,5 +7,40 @@
 </head>
 	<body>
 		<h1> Day 3 </h1>
+		<p> We're officially entering the late 1990s! </p>
+		<center>
+			<div class="stock-market-widget container">
+			<h2 class="stock-market-widget"> Stock Market Widget </h2>
+				<p> Start: <input class="stock-market-widget date-picker" type="date" id = "stock-market-start" min="1950-01-03" max="2016-06-20"></input> End: <input class="stock-market-widget date-picker" type="date" id = "stock-market-end" min="1950-01-03" max="2016-06-20"></input> </p>
+				
+				<p><button class="stock-market-widget submit-button" id="stock-market-button" onclick="computeAverageAnnualReturn()">Click me</button> </p>
+				
+				<p><textarea class="stock-market-widget result-area" id = "stock-market-results">Results will eventually go here.</textarea> </p>
+			</div>
+		</center>
+		<p>I'm' continuing to work on this tiny widget. Most components can be swapped out without too much effort--specifically, the datetime selectors and the data source. I really want to use a graph like the one below, and maybe I can just use it as a static image and include a slider. But there are more data points than pixels on a screen, so I'll need a zoom tool, and that'll get complicated.</p>
+
+		<p>I'm reading the entire csv file as a string and splitting along new lines, then commas to pull out the individual cells. I then create an object (one of the niftier pieces of Javascript so far), which essentially functions as a hash map--I can handily store the opening/closing numbers on each date. I'm storing everything as a string because, for the most part, there are way more data points than will be necessary, so converting things into datetimes or numbers isn't necessary for the vast majority of entries. Now, given a day, I can either directly pull the correct numbers out of the object if the day is in the object, or increment the day one by one until I find a day that the S&amp;P 500 opened on. Fun fact: the longest closure of the S&amp;P 500 since 195 was for 7 days... starting on September 11th, 2001. Maybe a not so fun fact.</p>
+
+		<p>Javascript has been cooperating so far. Parsing out datetimes into the same format as the CSV file turned out to be a slight pain. The internet directed me to use module called <a href="http://blog.stevenlevithan.com/archives/date-time-format">date.format</a>. I'm still somewhat averse to using node/npm yet, half because I've got other things to worry about right now, half because I want to do as much as I can by myself. And oh, half because of that whole <a href="">left-pad</a> <a href="https://news.ycombinator.com/item?id=11348798">mess</a>. It might be unnecessary, but I feel better about making pages that are essentially 100% vanilla ES6 compliant. </p>
+		
+		<p> In the end, I learned how to do some basic string/datetime parsing/manipulation and got to write a few for loops. Overall, probably a pretty good start if I had zero CS background and was learning my first language. I don't know how much I learned from this effort, but at least I made something, and that feels pretty cool. Just from a not-so-random sample, it seems like a 7% average return is not a totally unfounded statistic. </p>
+
+		<h2> LaTeX </h2>
+
+		<p>Knowing me, I won't infrequently want to put some mathematical symbols in my pages. LaTeX is what most math people use to display symbols, and I've gotten pretty familiar with it. In my old site/blog, I'd write up a LaTeX expression, create an image, and embed it. A quick check online informs me that most browsers now support the HTML5 standard <a href="https://en.wikipedia.org/wiki/MathML">MathML</a>, for which converters like LaTeXML (LaTeX to MathML). Unfortunately, after much searching, it seems that Chrome specifically doesn't include MathML support. <a href="chromeFail.png">Nothing renders</a>. The next best bet appears to be <a href="https://www.mathjax.org/">MathJax</a>, which supports inline LaTeX, so that's pretty cool. Next time I need to do something math-y, I'll start including MathJax. But we're low on time today.
+
+		<h2> Design </h2>
+
+		<p>What an ugly, ugly page. Tomorrow we're going to make this look better. I've got a few steps planned:</p>
+		<li>Include a header/sidebar with links to previous/next/index.</li>
+		<li>Make buttons do something when you hover over them.</li>
+		<li>Bring in a nicer font (what kind of website uses a serif font?</li>
+		<li>Bring in a nice color scheme (that MathJax website has a great scheme). This will require putting everything in spans/divs.</li>
+		<li>Draw a logo/favicon (totally pointless, but would also be fun!)</li>
+		<li>Maybe start using Polymer</li>
+
+		<p>I'm just unsure about whether or not Polymer is in line with or antithetical to my stated goal of keeping things completely vanilla. Google didn't really make it clear how "generic" web components really were. But it does seem like things might be a lot easier with it. We'll find out tomorrow. </p>
 	</body>
+
 </html>

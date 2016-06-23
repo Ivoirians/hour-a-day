@@ -1,6 +1,11 @@
 	function loadFile(blob)
 	{
-		console.log("Not implemented yet.")
+		var reader = new FileReader();
+		reader.addEventListener("loadend", function() {
+			console.log(reader.result)
+			console.log("done");
+		});
+		reader.readAsText(blob);
 	}
 
 	function initializeMap()
