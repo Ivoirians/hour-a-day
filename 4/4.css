@@ -1,0 +1,76 @@
+body {
+    background-color: #F0F0F0;
+    margin: 0px;
+    height:100%;
+}
+
+h1 {
+	font-family: Raleway;
+	text-align:left;
+}
+
+p {
+	font-family: "Raleway";
+    font-size:"12pt";
+}
+
+code {
+	background: hsl(220, 80%, 90%);
+	text-align: center;
+}
+
+#container {
+	
+}
+
+header {
+	height:130px;
+    background:#2E829E;
+    border:1px solid #CCC;
+    margin:0px auto;
+    padding-left: 30px
+}
+
+#sidebar {
+	background: #2E829E;
+	height:100%;
+	width:130px;
+	float: left;
+	margin-right:120px;
+}
+
+#content {
+	width:90%;
+	max-width:900px;
+	vertical-align:top;
+	margin-top: 20px;
+}
+
+
+.stock-market-widget.container {
+	background-color: #D6D6D6;
+	position:relative;
+	display:inline-block;
+	padding:10px;
+	border:solid black 2px;
+}
+
+.stock-market-widget.date-picker {
+	border:solid black 2px;
+}
+
+.stock-market-widget.submit-button {
+	position:relative;
+	width:50%;
+	padding:5px;
+}
+.stock-market-widget.result-area {
+	position:relative;
+	width:400px;
+	height:80px;
+}
+
+@font-face {
+	font-family:Raleway;
+	src: url(../RalewayThin.otf");
+}
