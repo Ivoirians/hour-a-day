@@ -16,6 +16,11 @@ def main(argv=None):
     with open("bare_template.html", 'r') as template:
         src = template.read()
         src = src.replace('{today}', days)
+        try:
+            src = src.replace('{today+1}', int(days) + 1)
+            src = src.replace('{today-1}', int(days) - 1)
+        except ValueError:
+            print ("Filename was not a number. Cannot replace today+1/-1 tags.")
         with open("{0}/{0}.html".format(days), 'w') as dest:
             dest.write(src)
     with open("index.html", 'a') as indexFile:
