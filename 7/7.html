@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 7</title>
+	<link rel="stylesheet" href="7.css" />
+	<link rel="icon" href="../favicon32.png" />
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+	<script src="7.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"/></a>
+			<h1> Day 7 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../6/6.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../8/8.html">Next</a>
+				</div>
+			</div>
+			<div id="content" class="fullheight">
+				<p>And now we're faced with a decision. What do we make next? A simple game comes to mind. Multiplayer would be great--I saw some easy ways to use <a href="https://firebase.google.com/">Firebase</a> (Backend as a Service) to very quickly set up a real-time online app. However, I have a few issues with that-- the first of which is that it may be hard to ever break away from using Firebase. For example, Firebase provides some convenient ways to manage accounts for you. But then I'll need to include Firebase wherever I need to get account data, and exporting it <a href="https://groups.google.com/forum/#!topic/firebase-talk/zQW-zV6aqQ4">requires contacting Firebase directly</a>. In the interest of not binding a potentially major aspect of my site to one tech provider, I'll lean towards creating my own backend. </p>
+
+				<p> Firebase is pretty cool though, I think especially for one-offs. Like, here's an simple app: click this button, and a global counter increases. You can have this page open in multiple pages, and all of them stay more or less in sync. And this took me less than ten minutes in total to write. Still no database setup required. Still no actual work done. But it's clear how this might be useful.</p>
+				<div id="firebase-counter-app">
+					<button id="counter_button">Click.</button>
+					<p id="counter_value"></p>
+				</div>
+
+				<p>But, okay. Let's brainstorm some other classes of apps that could be fun to make.</p>
+				<ol>
+					<li>Comment section</li>
+					<li>Quiz/poll functions</li>
+					<li>Games (with global stats/high scores/daily challenges)</li>
+					<li>Multiplayer games</li>
+					<li>Content Management</li>
+				</ol>
+				<p>The idea I'm most fond of is the game with global stats. The issue is, it's hard to make a game client-side without having to worry about cheating. It's possible, especially if you already have some backend processing going on. Like, if you wanted to time a player, the server would have to keep track of when the player first received the challenge, and when it received it, and you might want to sign the game state, and you're definitely limited in what you can really do. But, I have a lot of games I'd like to throw up onto a site. Many of them are board games, which are well suited for turn-based/slow-paced games--if you get into real-time multiplayer, you have to start worrying about latency, which I feel is a whole different class of problem to think about. Specifically, I have some of the logic for a board game called Quantum fleshed out. I tried to make Settlers of Catan years ago, but got as far as the hexagonal grid (which was just ~20 hours of directing hatred at CSS) before I got tired and gave up.And I have the Spades card game almost completely written out in Python. I think in terms of ease, I could go Spades -> Settlers of Catan -> Quantum right now, but there are probably easier/more abstract games I could and should start with.</p>
+
+				<p>The second idea is some sort of Content Management System. There's no great reason to code one from scratch considering how many exist, but I'll divulge that I have this idea for my own kind of website. The idea is, the data is structured as a directed graph, and any given node will be represented as a page, but the outward links from the node would be embedded inline in the text, and clicking them could expand the new node inside the current page. All of the CMS systems I've taken a brief look at (from Wordpress/Tumblr to Django/Drupal) don't quite allow this to happen--of course you could maintain your own graph of links and make each page work--but it should be easy enough to build out myself, since I just outlined the entire idea right there. A graph. The front-end would have to be written from scratch anyway, so why not aim big?</p>
+
+				<p> Those are the two main goals I have right now. The second one is much more work, but I can sort of envision the necessary pieces--besides the backend setup to structure the data, I'll have to build my own front-end editor to manage the data--like, my own text-box widget that allows for quickly creating/inserting references to other pages.</p>
+
+				<p> But we'll start simple. Let's see how long it takes me to build out a comment section. It's easy to see how fast it would be with Firebase--and maybe I can use that to build out the front-end first, before completely swapping it out for a server-based solution? Or are the two implementations completely different? I'd have to use some sort of AJAX/real-time updating thing (no "click-submit-and-the-page-refreshes" will be allowed on this website), which might require a completely separate logic from that of a one-line Javascript call. So, tomorrow, tomorrow, finally, we will set up our database. </p>
+
+				<p> Last fun fact: this page now validates! I'll be running all of my pages through the W3 provided <a href="https://validator.w3.org">HTML validator</a>, basically for giggles.
+			</div>
+		</div>
+	</body>
+</html>
