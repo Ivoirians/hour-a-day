@@ -1,36 +1,41 @@
-html, .fullheight{
+html, body, .fullheight{
 	height:100vh;
+	min-height:100vh;
 }
 body {
 	background-color: var(--coolor-background);
 	margin: 0px;
-	height:100%;
+	height: 100vh;
 }
 
 * {
 	--coolor-background:#ACB0BD;
 	--coolor-sidebar:#336699;
 	--coolor-container:#ACB0BD;
-	--coolor-sidebar-link:#485665;
+	--coolor-sidebar-link: #191716;
 	--coolor-dark:#ACB0BD;
 	--coolor-textblock:#FEFCFD;
 	--coolor-headertext:#FEFCFD;
 	--coolor-content:0A0908;
+	--left-offset-distance:30px;
 }
 
 #header-image {
 	float: left;
+	margin-left: 41px;
+	margin-top:2px;
 }
 
 h1, h2 {
 	font-family: Raleway;
 	color: var(--coolor-headertext);
+	white-space: nowrap;
 }
 
 h1 {
 	color: var(--coolor-headertext);
 	padding-top:26px;
-	padding-left:150px;
+	padding-left:195px;
 }
 h2 {
 	text-align:left;
@@ -66,14 +71,15 @@ header {
 
 #sidebar {
 	background: var(--coolor-sidebar);
-	height: 30%;
 	width:138px;
 	float: left;
 	margin-right:120px;
-	padding-top:30%;
-	border-right-width:4px;
-	border-right-color:black;
+	padding-top:24px;
+	margin-left: var(--left-offset-distance);
+	border-width:6px;
+	border-color: var(--coolor-sidebar-link);
 	border-right-style: solid;
+	border-left-style: solid;
 }
 
 #content {
@@ -81,6 +87,7 @@ header {
 	max-width:1300px;
 	vertical-align:top;
 	margin-top: 30px;
+	margin-left: var(--left-offset-distance);
 	margin-right:40px;
 	background: var(--coolor-content);
 }
