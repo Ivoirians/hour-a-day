@@ -17,8 +17,8 @@ def main(argv=None):
         src = template.read()
         src = src.replace('{today}', days)
         try:
-            src = src.replace('{today+1}', int(days) + 1)
-            src = src.replace('{today-1}', int(days) - 1)
+            src = src.replace('{today+1}', str(int(days) + 1))
+            src = src.replace('{today-1}', str(int(days) - 1))
         except ValueError:
             print ("Filename was not a number. Cannot replace today+1/-1 tags.")
         with open("{0}/{0}.html".format(days), 'w') as dest:
@@ -27,6 +27,7 @@ def main(argv=None):
         indexFile.write("<br><a href=\"{0}/{0}.html\">{0}</a>\n".format(days))
     try:
         shutil.copyfile("{0}/{0}.css".format(int(days) - 1), "{0}/{0}.css".format(days))
+        shutil.copyfile("{0}/{0}.js".format(int(days) - 1), "{0}/{0}.js".format(days))
     except ValueError:
         print ("Filename was not a number. Cannot fetch incremental CSS file.")
 main()
