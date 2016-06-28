@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 8 - Ivoirians</title>
+	<link rel="stylesheet" href="8.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="8.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 8 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../7/7.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../9/9.html">Next</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> Quite frankly, it looks like today's hour is mostly going to be reading. Our goal is to set up a comment section. I think a sub-goal might be to recreate the app from yesterday, but without using an external service. And I genuinely don't know, right now, where to start.</p>
+
+				<p> Five minutes of googling: We want to build a simple server/client app. I use ASP.NET at work, where Microsoft handles all of the nitty-gritty of both the hosting logic and the communication with the server. I don't want to use ASP.NET for this. Node seems to pop up a lot. Everything I know about node.js right now is it provides a server that interfaces easily with Javascript. The idea of using Node is kind of frightening, because why oh why would I want to write my back-end in Javascript? But, all signs point to this being a vital piece of web tech that I should definitely try to learn. Just need to verify that node will let me build out a global-counter type of thing...</p>
+
+				<p> I've verified that it should be possible, and I'm going into one of the <a href="http://blog.modulus.io/absolute-beginners-guide-to-nodejs">most basic tutorials I've found</a>. Godspeed. </p>
+
+				<p> Just to keep myself honest, we're twenty-seven minutes into the day and I'm still just reading. I've determined that Node.js can be used as a full server-client communication model, but as I somewhat expected, I don't have to write my backend in Javascript. The only thing I'm really interested for this specific task (the global counter) is AJAX, some way for the web page's script to update the page asynchronously. <a href="http://trends.builtwith.com/javascript">jQuery is the most popular Javascript library</a>, although it's possible not all of these sites are using it for AJAX, but for the document navigation/event handling/solving problems posted on StackOverflow. The most common <a href="https://en.wikipedia.org/wiki/List_of_Ajax_frameworks#JavaScript">JavaScript frameworks</a>, at least one of which I expect I'll be forced to use, AngularJS stands out as something I've seen people get excited about.</p>
+
+				<p> Thirty-seven minutes in and I'm reading Angular tutorials. It seems relatively convenient to work with, but I really do miss ASP.NET/Firebase/services that have everything set up conveniently for me. The best strategy I can come up with now, is to set up a separate web server just for services, with pages like "/getCommentSection?sectionId=blah" that do database read/writes. And I won't even get live updates, at least, not easily. I'll probably have to worry about security, firewalls, Tomcat--which, to be fair, I was going to do anyway--but having seen how easy it is to get servers running, I'm kind of wondering why anyone goes through LAMP anymore. Honestly, I'm strongly considering more and more just using Firebase.</p>
+
+				<p> Just so we still do something interesting today, let's get a quick Angular "app" up and running. </p>
+
+				<div data-ng-app="gcd-app" data-ng-controller="gcd-controller">
+				 	<p>a : <input type="text" data-ng-model="a"></p>
+				 	<p>b : <input type="text" data-ng-model="b"></p>
+				 	<p>GCD(a, b) = {{gcd()}}</p>
+				</div>
+
+				<p> Kind of neat! So, the question now is, how much more work is it to get Angular to get data from a service endpoint versus an input box? We'll find out... tomorrow!</p>
+
+				<p> Weird caveat: you can only have one Angular application per HTML page. Very, very weird. Strange bugs occured because of it. Probably a way around it with iFrames or whatever, or just to put all your logic in the same app. </p>
+			</div>
+		</div>
+	</body>
+</html>
