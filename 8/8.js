@@ -10,10 +10,10 @@ gcd = function(a, b){
 		return a;
 	}
 	else if (a >= b) {
-		return gcd (a-b, b);
+		return gcd (a % b, b);
 	}
 	else {
-		return gcd(b-a, a);
+		return gcd(b % a, a);
 	}
 };
 
