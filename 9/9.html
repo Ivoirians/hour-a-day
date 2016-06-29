@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 9 - Ivoirians</title>
+	<link rel="stylesheet" href="9.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="9.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 9 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../8/8.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../10/10.html">Next</a>
+				</div>
+			</div>
+			<div id="content">
+				<p>It looks like I'm headed into a messy section of software development--the incredibly divisive world of the web. The general opinion I see of Node isn't exactly positive--I saw a lot of agreement with the notion that writing backend database systems in <i>Javascript</i> is insanely complex and hard to manage. And yet, of course, Node has a large, dedicated following. Or does it? Consider this <a href="https://w3techs.com/technologies/overview/web_server/all">chart</a>. Apache, Nginx, and Microsoft-IIS run 94% of websites. <a href="https://w3techs.com/technologies/details/ws-nodejs/all/all">But at the same time, Node.js seems to run some very high-traffic sites</a>.</p>
+
+				<p> Meanwhile, I was curious about what I'd use to build out the web-server interface I'll need. Terrifyingly, <a href="https://w3techs.com/technologies/overview/programming_language/all">apparently 82% of sites use PHP</a>. I hate PHP. I have to link <a href="https://eev.ee/blog/2012/04/09/php-a-fractal-of-bad-design/">this blog post</a>. I really, really would rather not touch PHP today, or ever, if at all possible. </p>
+
+				<p> But then I need to ask myself--what is the point of this journey? I didn't want to learn Javascript either. You can't <i>really</i> make a website with Javascript--but you can without PHP, surely. I've used Django and ASP.NET to build sites before (not great sites, but sites with no PHP and, actually, no JS). Node.js, Angular.js, all these libraries aren't "necessary" to learn--if my end goal was just to build a neat website, I would be seeking out the libraries and frameworks that are easiest for me to develop with. Do I need Node.js and MongoDB to run my backend? No, I can just use Firebase or Django or something that makes life easy. Do I need to learn Angular or React to make a multiplayer game? Certainly not for a turn-based board game. For a real-time multiplayer game? I remember seeing a Django + Socket.io real-time chatroom a while back. It might have used Node, too. Firebase probably doesn't lend itself to real-time multiplayer. </p>
+
+				<p> Quick aside: I like Django because I like Python. I wish I could develop for the web in Python. Why can't browsers or the W3 just adopt Python as the new scripting language for the internet? That'd be great. I like Firebase because it seems easy, and Google pushed it tremendously hard at Google I/O 2016. It seems to fulfill a large portion of my needs (authentication, real-time updates) with very, very minimal work. That's why I keep coming back to these two. </p>
+
+				<p> Is the goal here to get to an end result as quickly and efficiently as possible? I've figured out that some Javascript is a must for an interactive web-app--the W3 doesn't answer to me, and AJAX stands for "Asynchronous Javascript and XML", after all. And I still don't know exactly how I'll get real time socket-level communication--thus the explorations into Node.js and Angular.js and server-communication that led us to PHP and now to where we are right now. </p>
+
+				<p> But, maybe the goal should be to try as many different techs as I possibly can. In fact, it seems obvious. How can I justify my hatred of PHP if I haven't tried writing a site with PHP yet? How can I know which tech is best suited for a real-time notification system if I haven't tried several different options? The web framework ecosystem is reminiscent of the console wars of my youth. Unless you were fortunate, uou only got one gaming console. Maybe your parents picked one for you, or maybe you did your research, figured out which had games you liked, and picked one after significant deliberation. Either way, that was the one you stuck to. And you didn't get to branch out--you were a Nintendo or Sony or Microsoft kid, essentially for life. And you had fervent, zealous arguments where most people were convinced that their one arbitrary choice was the "best".</p>
+
+				<p> I feel like, as a fleeting observer of some online arguments, the web ecosystem is this, but much worse. Because it's not a parent's money that you feel you need to defend, but it's your own skills and knowledge. If you spend years of your life learning and developing with PHP and you're told by an upstart software developer with an awful, amateurish blog that PHP is the worst language ever--of course you're defensive. Even if you've only spent the last six months using Node.js, the notion that maybe Node.js isn't so great and you should switch to this new thing is daunting at first--and then years pass and you're even more ingrained in the Node.js world with diminishing chances of escape. And on one hand, being ingrained in a tech isn't bad. You become an expert. You become efficient. You can do more with five years of experience in one tech than anyone could with six months in another could. Except, maybe that last sentence isn't true. The issue with sticking to one tech is, it's harder to have different perspectives on what solutions are available for a given problem, and it's harder to adapt to new tech.</p>
+
+				<p> I'm certainly not an authority, or even remotely qualified to make sweeping judgements like this. But it makes sense to me, personally. And so, I want to taste as many techs as I can. The old and the new. The elegant and the pragmatic. The simple and the daunting. That's the point of this project. To not back down to anything. </p>
+
+				<p> Easier said then done, of course. I think the best way to stay true to this goal and to keep motivated is to have tangible objectives. So, the comment section, the multiplayer games--I need to balance how much I want to obtain a goal with how long it'll take me to accomplish it. I have motivation problems. But the most manageable goal of all is so simple--one hour a day. Spend one hour a day reading or learning or experimenting, and don't miss a day or face public humiliation. I'm really hopeful about this endeavor. </p>
+
+				<p> Anyway. Not enough time today to do anything cool, although I had a conversation with a web-dev colleague who answered some of my questions from above. I'll spend the rest of today trying to fix that bug where the sidebar is too short if you narrow the width of the page. If you still see that happen, I failed today. </p>
+			</div>
+		</div>
+	</body>
+</html>
