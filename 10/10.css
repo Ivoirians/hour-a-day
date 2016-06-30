@@ -42,7 +42,7 @@ h2 {
 	margin:0px;
 	padding:10px;
 	background-color: var(--coolor-sidebar);
-	padding-left: 170px;
+	padding-left: 180px;
 	margin-left: 120px;
 }
 
@@ -52,7 +52,7 @@ p, ol, ul {
 	padding:15px;
 	margin:0px;
 	margin-bottom:12px;
-	padding-left: 170px;
+	padding-left: 180px;
 	margin-left: 120px;
 	/* overflow: visible; */
 }
