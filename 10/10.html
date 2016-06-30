@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 10 - Ivoirians</title>
+	<link rel="stylesheet" href="10.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="10.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 10 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../9/9.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../11/11.html">Next</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> So, today we build a global counter. It isn't going to update every client when it changes, but we'll have a basic server infrastructure built out by the time we're done. </p>
+
+				<p> Design-wise, I have a very vague idea of how to do this. I'll have to set up some kind of database--right now, I can use something as simple as SQLite or Redis. Or even a text file would work. In fact, if I use a text file, I may not have to switch my hosting from Github Pages, unless they disallow dynamic changes to their filesystem. Which they might. They probably should. I should investigate this later, and maybe see if it's even possible. </p>
+
+				<p> But okay, back to design. We can pick any simple server, since I'm not committing myself to anything with a large project yet. I think I could pick a very simple HTTP server as well--I'm wondering if I can get away with Python -m SimpleHTTPServer. No features is something I'd be okay with. Nginx is always an option, and <a href="http://stackoverflow.com/questions/415192/best-way-to-create-a-simple-python-web-service">this link</a> has a few other interesting options for writing services in Python. </p>
+
+				<p> The real question is, how do I expose a service to the internet? I'm faced with a problem I've never really thought about and certainly don't know the answer to right now--how do I make a program accessible to HTTP calls? Serving static pages is easy, but if I write a python program, what protocol or framework do I need so that I can hit a service endpoint which sits on top of this program? And it appears the answer is a "gateway interface", traditionally something like <a href="https://en.wikipedia.org/wiki/Common_Gateway_Interface">CGI</a>. Python has its own gateway interfaces like <a href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">WSGI</a> that work with something like <a href="http://flask.pocoo.org/">Flask</a>. Flask is very attractive right now. Although, if I'm really looking at Python frameworks, I might as well pull out the full list: </p>
+
+				<ul>
+					<li><a href="https://www.djangoproject.com/" >Django </a> </li>
+					<li><a href="http://flask.pocoo.org/" >Flask </a> </li>
+					<li><a href="http://www.cherrypy.org/" > CherryPy </a> </li>
+					<li><a href="http://www.pylonsproject.org/" >Pylons(Pyramid) </a> </li>
+					<li><a href="http://www.tornadoweb.org/en/stable/" >Tornado </a> </li>
+					<li><a href="http://www.tornadoweb.org/en/stable/" >Bottle </a> </li>
+					<li><a href="https://github.com/dieseldev/diesel" >Diesel </a> </li>
+					<li><a href="https://pecan.readthedocs.io/en/latest/" >Pecan </a> </li>
+					<li><a href="https://falconframework.org/" >Falcon </a> </li>
+				</ul>
+
+				<p> Imagine if it was the console wars and there were nine different types of Playstations. Forget trying out every framework; just reading about the different frameworks is in itself a task. But in general, what I've learned: </p>
+
+				<p>I am only just now discovering that Django probably didn't suit my needs when I tried it out all those years back. Django's major selling point is a huge infrastructure on top of the web framework it provides, like the templates, and the MVC setup, and the administration/user panel, and the entire CMS it provides. I just wanted to build a game. I didn't need any of this.</p>
+
+				<p>The general opinion is, Pyramid is flexible. Django is mature. CherryPy is good for small projects. Flask is a better CherryPy. The others don't have much market/mindshare (sorry).</p>
+
+				<p> For the apps at my scale, Flask is definitely at the top of my list of frameworks to try. I'm going to nonchalantly save <a href="http://stevenloria.com/hosting-static-flask-sites-for-free-on-github-pages/">this page</a> with information on how to use flask with Github Pages. But I think fundamentally the issue is, saving data "on the server" isn't possible with Github Pages. I'll want to dust off my cloud server instance soon.</p>
+
+				<p> So, I'm eschewing your standard web dev framework stacks (LAMP, MEAN, Ruby on Rails) in favor of things I'm more familiar with (Python, Python! and Python). Is this really the right decision? Am I not contradicting what I said I'd do yesterday? I came into today planning to dive into either Apache/PHP or Node.js/Express.js.</p>
+
+				<p> I guess it's offputting to see how many options there are out there. There's no "correct" choice. If there is one, it's what the most people use, because that'll have the largest community and the most support, both from programmers and from browsers. But I'm decidedly anti-populist. Some would say that's "hipster". But really, populism gets us PHP and Javascript everywhere--the world would be a better place if someone had unilaterally decided, "wait, guys, these are awful. Let's build something new and ideal and elegant and use that instead", and browsers didn't have to worry about the existing web ecosystem, and programmers were okay with forgetting everything they'd learned and starting over. If all of that had happened, we'd have uniformity, standardization, and life would be so much better.</p>
+
+				<p> Populism is for chumps. But of course, that ideal world isn't the world we live in, and learning to use Flask won't help me in a "social" sense--I won't be able to network or connect with as many other programmers as if I learned Node.js or PHP. But, I think I'm willing to live with that. And I'll be learning about CGI and web APIs, so, whatever. </p>,
+
+				<h2> DigitalOcean </h2>
+
+				<p> I'm dusting off my <a href="https://www.digitalocean.com/">DigitalOcean</a> account. DigitalOcean is a cloud computing service, that I think is commonly used for web hosting. If this whole experiment goes well, I'll probably want to buy my own server--or build my own server! That would be fun. Although, I'd have to deal with security and monitoring and cooling and power-consumption and sys-administration and all that jazz. In a way, $5 a month for a simple cloud server might actually pay off because of economy of scale. <a href="linode">Linode</a> is the one alternative I'm aware of, if you want to comparison shop.</p>
+
+				<p> If you're a student, take advantage of free <a href="https://education.github.com/pack">DigitalOcean</a> credit, as well as a lot of other cool developer tools. The other thing I've used from that link is a domain name from namecheap. We'll definitely need that too, considering hosting of this website is imminently moving from Github Pages to my own server. </p>
+
+				<p> It turns out my $100 of credit from October 2014 just expired last month. First, what an awful waste. Second, great that I'm actually going to start using this server again. </p>
+
+				<p> The server is already set up. The main question now is, what is my developer workflow going to look like? "git push github.io" is no longer the last step in the deploy process--for now I'll need to manually SCP the files over as my deploy step. Or, move my entire development workflow to the new server. Either works--I'd lean towards the latter, just because then I can standardize the OS everything's running on. I've been developing on both a Mac and a Windows PC, and the DigitalOcean nodes are all Linux, so this was going to be a massive headache down the road.</p>
+
+				<p> Well, once again, we've planned, pontificated, and done nothing with our hour. Tomorrow we move everything to my new server. </p>
+
+
+			</div>
+		</div>
+	</body>
+</html>
