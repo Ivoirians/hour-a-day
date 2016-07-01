@@ -40,9 +40,9 @@
 	
 				<p> The first thing we want to do is get a web server running. In this case, I've selected Nginx, so I'm going with nginx (all caps?). Installation instructions for Ubuntu are <a href="https://www.nginx.com/resources/wiki/start/topics/tutorials/install/">here</a>.</p>
 
-				<p>At this point, nginx automatically starts up and shows you a nifty splash page if you type your server's IP address into a browser. The one thing I'll do now is type </p>
+				<p>At this point, nginx automatically starts up and shows you a nifty splash page if you type your server's IP address into a browser. The one thing I'll do now is type 
+				<code>sudo update-rc.d nginx defaults</code></p>
 
-				<code>sudo update-rc.d nginx defaults</code>
 
 				<p> to make sure nginx starts up whenever the server reboots. So from this point on, nginx will always be running in the background, and we can take it for granted. </p>
 				
@@ -50,13 +50,13 @@
 
 				<p> Now, of course, the first thing you want to do (the first thing I did ten days ago) is set up your server with some static pages. This step may be all you need for your site, if all your code is client-side--it's certainly all I needed, even up through today.</p>
 
-				<p>Since you can see the nginx splash page, the server is already actually serving static files. The file shows up in both /var/www/html/ and /usr/share/nginx/html/, although it looks like it's using the one in the former directory. We can appropriate that for all of our files. To change this directory, I'd need to configure nginx. </p>
+				<p>Since you can see the nginx splash page, the server is already actually serving static files. The file shows up in both <code> /var/www/html/ </code>and <code> /usr/share/nginx/html/</code>, although it looks like it's using the one in the former directory. We can appropriate that for all of our files. To change this directory, I'd need to configure nginx. </p>
 
-				<p> This is something I can never remember, where the files to configure nginx are located. For future reference, they're in /etc/nginx/sites-available/. Each file configures a virtual host. I'll copy the default template (which currently points at /var/www/html/) into a new file to configure this new website. </p>
+				<p> This is something I can never remember, where the files to configure nginx are located. For future reference, they're in <code> /etc/nginx/sites-available/.</code> Each file configures a virtual host. I'll copy the default template (which currently points at <code> /var/www/html/)</code> into a new file to configure this new website. </p>
 
-				<p> So in this new file, we can change the default server and point it at some other working directory. I don't know what a best practice here is--I pointed it at /home/&lt;sitename&gt;/publish/. You can probably just leave it in /var/www/html/. This part doesn't matter as long as you remember it. </p>
+				<p> So in this new file, we can change the default server and point it at some other working directory. I don't know what a best practice here is--I pointed it at <code> /home/&lt;sitename&gt;/publish/.</code> You can probably just leave it in <code> /var/www/html/.</code> This part doesn't matter as long as you remember it. </p>
 
-				<p> Now, after you put some stuff in the new directory, you need to enable this new config. I think nginx essentially only cares about something if it's in /etc/nginx/sites-enabled/. Remove the existing symbolic link to the default file and add a symbolic link to the new file you just added to sites-available. Restart nginx and voila, everything works.</p>
+				<p> Now, after you put some stuff in the new directory, you need to enable this new config. I think nginx essentially only cares about something if it's in <code> /etc/nginx/sites-enabled/.</code> Remove the existing symbolic link to the default file and add a symbolic link to the new file you just added to sites-available. Restart nginx and voila, everything works.</p>
 
 				<p> There is still the question of domain names. You should acquire one. And then you should follow the DNS provider's instructions as to how to point that domain name at your server. I can't help you there--I did this two years ago and haven't touched it since. </p>
 
@@ -69,11 +69,6 @@
 				<p> As I've said for the third day in a row: tomorrow we build out a global counter app. We probably won't, considering the various configuring and setup we'll need to do with our new server. In particular, what comes to mind is the deploy step of my workflow: right now, I can develop locally, push my changes, ssh into the server, and pull my changes there. I'd like to automate this somehow, even if it's only three commands. Probably will end up writing another python script. </p>
 
 				<p> Also, I took a look at my github page. We're probably going to have a hundred folders in this repo. It already is looking somewhat bad. I should probably fix this problem earlier so I don't have to deal with fixing links in a hundred pages down the line. </p>
-
-
-
-				github 100 files
-
 
 			</div>
 		</div>
