@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 13 - Ivoirians</title>
+	<link rel="stylesheet" href="13.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="13.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 13 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../12/12.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../14/14.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> Taking off where we left off... </p>
+
+				<h2> WSGI</h2>
+
+				<p>So, I follow the tutorial and write up a quick little Werkzeug app. But then I get to the section about actually running it--Werkzeug has its own HTTPServer for development, located in werkzeug.serving.run_simple. But for actually attaching it to nginx, it looks like WSGI is a layer of abstraction away from the CGI frameworks that Apache/nginx support. Which, I guess isn't too surprising. But that means I'm missing something, and I don't really know what I'm missing. I've been Googling around and finding all these articles about using FastCGI and uWSGI with nginx and I'm not sure what I should do. </p>
+
+				<p> So let's work it out. To recap everything I know for sure: WSGI is Python's equivalent of CGI, a protocol for allowing applications to respond to HTTPRequests. Nginx is a web server. Nginx handles incoming requests and determines where they should be routed. Nginx has support for CGI programs, and it seems <a href="https://docs.python.org/2/library/cgi.html">it's possible to write Python programs as CGI scripts</a>.
+		</div>
+	</body>
+</html>
