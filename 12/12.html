@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 12 - Ivoirians</title>
+	<link rel="stylesheet" href="12.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="12.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 12 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../11/11.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../13/13.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> It's been a busy day, with unexpected medical issues (nothing serious, it seems right now), so I may not have a lot of time. But I gotta do this every day, I just gotta. </p> 
+
+				<h2> Remote Deployment </h2>
+
+				<p>The plan now is to flesh out my remote deploy workflow step. Ideally, I could hit "git push" and the remote server would pick up the changes. As a close second, I could run a single python script that pushes and remotely pulls the changes. </p>
+
+				<p> As an algorithm guy, dealing with filesystems has always been my bane. I would hate being a sys-admin. Merely creating a folder makes me uncomfortable. But we'll go with <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-automatic-deployment-with-git-with-a-vps">DigitalOcean's own tutorial.</a></p>
+
+				<p>I didn't think yesterday's "tutorial" was all that useful as an educational tool. And so I went ahead and worked through most of the tutorial myself. With a post-receive hook, I can run <code>git push publish</code> and the changes appear on the site. Great! In the interest of 100% understanding how everything works, I'm not sure where my bare git repo stores the files it got pushed. Otherwise, things are neat and tidy. I added a normal git repo on the server too, in anticipation for when I build out a production database/install crucial applications. So, we have two working repos, one local and one remote, and we have a remote git endpoint which publishes the site when we push to it. </p>
+
+				<p>All right, neat stuff!</p>
+
+				<h2>Gateway Service </h2>
+
+				<p>Now it's time to set up a method of creating service endpoints. I'm looking for a balance between as minimal as possible and as easy to use as possible. Unfortunately, almost every single web gateway framework I found advertises itself like this. Arbitrarily, I'm looking at Flask (a new-ish web microframework, whatever that means) and Werkzeug (German for "work materials", a bare-bones WSGI framework which forms the basis for Flask). Lots of pros and cons--Flask will be easier to use. Werkzeug meets more of the "I want to learn how everything works" criterion. Using that will probably help us better understand what Flask offers more than just a WSGI, and why we'd want to use it. But it's all a tightrope walk--to take it to an extreme, do you really need to learn how diodes and circuits work in order to build a robot? Maybe twenty years ago, but today, you buy a circuit board and motors and whatever you need, and can probably get by without getting that deep into the nitty gritty.</p>
+
+				<p> We'll err on the side of caution, in the sense of "okay, maybe learning how Werkzeug works will be important". We start by installing pip, which installs a hundred libraries (including the crucial python2.7). Then we hit apt-get install python-virtualenv. To work through the <a href="http://werkzeug.pocoo.org/docs/0.11/tutorial/">tutorial</a>, we're also going to install redis (as a database) and Jinja2 (for templates?). Unfortunately, this is it for our time today. But tomorrow promises to be even more productive. </p>
+			</div>
+		</div>
+	</body>
+</html>
