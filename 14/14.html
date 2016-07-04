@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 14 - Ivoirians</title>
+	<link rel="stylesheet" href="14.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="14.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 14 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../13/13.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../15/15.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> It's pretty exciting because, for the first time, I know I have all the tools I need to build any website I want. I have an endpoint which runs any python program I'd like on my server and returns a response that my client-side app can read. So all the tools I need, like an authentication system, or giving my client access to a database, can be written in the ultra-familiar-to-me space that is Python. The incredibly mystical front-end has gotten </p>
+
+				<p> The one missing link is real-time communication, which will require (as far as I know) sockets. I'm finding inconclusive results about being able to set up sockets with Gunicorn. I actually don't know how I'd use sockets on the front-end either. That's a question for another day, though. Until then--we've got services!</p>
+
+				<p> So let's build the second global counter app. Of course, we do actually still have one missing piece, namely, the database. Python has native support for a very simple to use database called SQLite. It's not a full-fledged database, in that the database is stored in a single .db file and concurrency control is at the file-level. Meaning one process accessing the database locks the entire database. But it should be more than good enough until my website gets to like, hundreds of accesses per second. And even at that point, we can swap out a better database.</p>
+
+				<p> We don't even really need the database for the global counter. As mentioned before, a single file would serve the same purpose. But this will be good to try out. </p>
+
+				<p> We create a SQLite database called ivoirians.db. We create a single table, tb_Counter, with a single column, intCounterValue. We add a single row, 0. There should never be more than one row in this table. And then lastly, to our testService from yesterday, we add two more possible calls--one increments the counter and returns it, one returns it. One will be called on page-load, the other is called when the button is pressed. </p>
+
+				<p> After the services are finished, we wire up our front-end. Create a button, set it to the service value on startup, and update it when it's pressed. As simple as that sounds, I realize I haven't ever tried to write Javascript to do this before.</p>
+
+				<div id="basic-counter-app">
+					<button id="counter_button">Click.</button>
+					<p id="counter_value"></p>
+				</div>
+
+
+			</div>
+		</div>
+	</body>
+</html>
