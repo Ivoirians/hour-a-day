@@ -41,10 +41,12 @@
 
 				<p> After the services are finished, we wire up our front-end. Create a button, set it to the service value on startup, and update it when it's pressed. As simple as that sounds, I realize I haven't ever tried to write Javascript to do this before.</p>
 
-				<div id="basic-counter-app">
-					<button id="counter_button">Click.</button>
-					<p id="counter_value"></p>
+				<div id="basic-counter-app" ng-controller="CounterController">
+					<button id="counter_button" ng-click="addCounter()">Click.</button>
+					<p id="counter_value">{{counter}}</p>
 				</div>
+
+				Unfortunately--I never learned how Angular worked. 
 
 
 			</div>
