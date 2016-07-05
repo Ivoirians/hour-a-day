@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 15 - Ivoirians</title>
+	<link rel="stylesheet" href="15.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="15.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 15 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../14/14.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../16/16.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> So. First, to deal with the debug problem, I set up a dev version of the site. For now it's accessible in <a href="http://dev.ivoirians.me/">dev.ivoirians.me/</a>, and the only time you'll see anything different there from the live site is if you happen to check while I'm in the middle of development. I set up a dev service as well, on a different port from the existing one. The one thing I'm aware of that I'm still unsure about is how to handle deplyment of those services--someone has to start the server, and I've been starting it/killing it manually so far. A quick search doesn't turn up any easier ways to deal with this, so we'll stick with that. </p>
+
+				<p> Now we have the setup to test our Angular stuff in development. The main reason it wasn't working yesterday? You need to enclose all of your angular app logic in the ng-app tag--none of the small snippets/examples I looked through included this fact. Goes to show, you can't learn everything just by reading examples.</p>
+
+				<div id="basic-counter-app" ng-app="counterApp" ng-controller="CounterController">
+					<button id="counter_button" ng-click="addCounter()">Click.</button>
+					<p id="counter_value">{{counter}}</p>
+				</div>
+
+				<p> Of course, this doesn't handle the live-updates that we had with Firebase on <a href="/7/7.html">Day 7</a>. It'll be a while before we get to that point. </p>
+
+				<p> I wanted to spend some time building out an API doc for the services I'm building. Pydoc is a module that uses docstrings you write and generates an HTML doc file, so all I need to do is actaully write those docstrings. That also requires a little bit of refactoring the structure of my service. </p>
+
+				<p> Pydoc doesn't work as expected. Besides having difficulty generating docs for an entire package/module, the HTML it creates looks god-awful. There are a ton of other documentation generators out there that I will take a look at. </p>
+
+				<p> Stepping back a bit, we didn't do much today, but we now do have the ability to do a lot. I've set up the Werkzeug app to handle URL routing, so we can easily make some self-contained applications. Next on the list after the global counter is a comment-section app, which will be followed by some sort of game (I cannot wait). On the infrastructure side, I want to create a 404 page and take the few minutes to set up nginx to point at the 404 page. So, those are the tasks for this week. </p>
+
+				<p> I'm really worried that one directory per day is going to be an issue down the line. The github page for this project is going to be a hundred lines long before I know it. The sooner I decide how to fix that, the less fixing URLs I'll have to do, but I'm not sure how to handle this quite yet. </p>
+			</div>
+		</div>
+	</body>
+</html>
