@@ -1,3 +1,5 @@
 .DS_Store
 svc/venv
 *.pyc
+/.cache
+.sqlite_history

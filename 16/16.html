@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 16 - Ivoirians</title>
+	<link rel="stylesheet" href="16.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="16.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 16 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../15/15.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../17/17.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> I've still been wrestling with the ugliness that is storing every day's post as a separate group of files in a separate folder, as opposed to, say, storing my HTML content body in a database. It's so clearly the correct way to do a website--but it's difficult to justify for my current needs. Specifically, the biggest reason you'd want to store text content in a database is because, for most websites, the design is consistent. If you decide to move your header or change the background, you want this to happen for every page on your site, so you build a template and keep the body of each page in a CMS. But this is supposed to be more of a journal. You should see a progression as the day's go by, of improved design, and of new widgets like a comment section or tags--each day isn't supposed to look like the last. </p>
+
+				<p> I could still save the entire HTML file itself in a database. That just makes my life slightly harder, though--to publish, I'll have to do something fancy to insert my files into the database, and to deploy, I'll need to route everything through Werkzeug and have it serve files from the database. Again--the right thing to do, but something that feels unnecessary at this juncture.</p>
+
+				<p> So, we press on. Today, to prove we're in the big leagues, we look at building a simple comment section. </p>
+
+				<h2> Comment Section </h2>
+				<p> Prelude: I hate internet comment sections. I think every website should remove their comment sections, and the internet would be a nicer place. So, on principle, I will probably not keep this comment section around; it's just an exercise, or a proof of concept.</p>
+
+				<p>With these apps, there are always the same three components. First, the server needs to be set up. Second, I need to write my backend logic for handling the data. Third, the front-end needs to be built around the service endpoints I've created. But now, 16 days in, each of these steps doesn't seem so hard.</p>
+
+				<p>To start, the database model we'll use is simple. Each numbered page will have a separate comment section, so we'll have an indexed column for page numbers. Each comment will have a number, a date-created, a username, and a body. For now, we won't have any restrictions on what people can post as their name and body. We're also not going to do anything fancy like nesting comments </p>
+
+				<p> That's it. One column looks like &lt;page_number (or page_identifier), comment_number, date_created, username, comment_text&gt;. I've created the table, so now to move on to making an API.</p>
+
+				<p> The API needs at least two methods: getComments(page_number), and addComment(page_number, username, comment_text). I think for the sake of future management/administration, it might be useful to add other functions like deleteComment(page_number, comment_number) or getAllComments() (i.e. dump everything). And so immediately I need another column in my table, bIsDeleted, to support logical deletes (to display "Comment has been deleted" or something.) And maybe a dtmDeleted column as well. </p>
+
+				<p> So, I can build out the API in Python (which I am super super awesome at), and we turn our attention to the front-end. I hit a snag, specifically, that GET and POST requests should be handled slightly differently--and we should definitely use POST requests for the addComment and addCounter functions. I ended up refactoring the main API processor a bit for the rest of the hour--the arguments are being passed in correctly now, so tomorrow we'll set up the entire front-end.</p>
+
+			</div>
+		</div>
+	</body>
+</html>

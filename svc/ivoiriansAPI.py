@@ -1,5 +1,6 @@
 import os
 import redis
+import code
 import urlparse
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map, Rule
@@ -10,16 +11,41 @@ from jinja2 import Environment, FileSystemLoader
 import random
 from api.counter import Counter
 
+def rollDie(request):
+	return random.randint(1,6)
+
+def getCounter(request):
+	return Counter.getCounterValue()
+
+def addCounter(request):
+	return Counter.addCounterValue()
+
+def getComments(request):
+	qs = urlparse.parse_qs(request.query_string)
+	return Comments.getComments(qs["page_number"])
+
+def addComment(request):
+	formData = request.form
+	return Comments.addComment(formData["page_number"], formData["username"], formData["comment_text"])
+
+services = {
+	'/rollDie': rollDie,
+	'/counter/get': getCounter,
+	'/counter/add': addCounter,
+	'/comments/get': getComments,
+	'/comments/add': addComment,
+}
+
 def start(environ, start_response):
 	request = Request(environ)
-	test = "Service not found."
-	service = request.path.split("svc")[1]
-	if service == '/rollDie':	
-		test = random.randint(1, 6)
-	if service == '/counter/get':
-		test = Counter.getCounterValue()
-	if service == '/counter/add':
-		test = Counter.addCounterValue()
-	response = Response(str(test), mimetype='text/plain')
+
+	responseBody = "Service not found."
+
+	try:
+		responseBody = services[request.path.split("svc")[1]](request)
+	except Exception as e:
+		responseBody = str(e)
+
+	response = Response(str(responseBody), mimetype='text/plain')
 	return response(environ, start_response)
 
