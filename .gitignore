@@ -3,3 +3,4 @@ svc/venv
 *.pyc
 /.cache
 .sqlite_history
+.bash_history

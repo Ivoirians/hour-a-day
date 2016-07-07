@@ -2,6 +2,7 @@ import os
 import redis
 import code
 import urlparse
+import json
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound
@@ -10,6 +11,7 @@ from werkzeug.utils import redirect
 from jinja2 import Environment, FileSystemLoader
 import random
 from api.counter import Counter
+from api.comments import Comments
 
 def rollDie(request):
 	return random.randint(1,6)
@@ -25,7 +27,7 @@ def getComments(request):
 	return Comments.getComments(qs["page_number"])
 
 def addComment(request):
-	formData = request.form
+	formData = json.loads(request.data)
 	return Comments.addComment(formData["page_number"], formData["username"], formData["comment_text"])
 
 services = {
@@ -44,7 +46,7 @@ def start(environ, start_response):
 	try:
 		responseBody = services[request.path.split("svc")[1]](request)
 	except Exception as e:
-		responseBody = str(e)
+		responseBody = "Could not execute service " + request.path.split("svc")[1] + ": \n" + str(e)
 
 	response = Response(str(responseBody), mimetype='text/plain')
 	return response(environ, start_response)

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 17 - Ivoirians</title>
+	<link rel="stylesheet" href="17.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="17.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 17 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../16/16.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../18/18.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<h2> Comment Section </h2>
+
+				<p> Yesterday we created the necessary API calls--get, add, delete, and getAll. Give me ten minutes to test each call and we'll turn to the front-end. </p>
+
+				<p> Okay. The question now is--Python returns a list of tuples, where each tuple represents a row. Javascript likes working with JSON objects, but no matter what, Javascript is going to receive a string. Python's string looks like this right now: </p>
+
+				<p><code>[(u'17', 1, u'2016-07-07 04:10:22', u'ivoirians', u'test', 0, None), (u'17', 2, u'2016-07-07 04:11:10', u'ivoirians', u'test2', 0, None), (u'17', 3, u'2016-07-07 04:11:21', u'ivoirians', u'This is the third comment.', 0, None)]</code></p>
+
+				<p>Besides the letter u representing unicode strings (that should be easy to fix), we have an ugly mix of brackets, and worst of all, no names of keys. It wouldn't be too hard to parse this mess on the front-end (actually, maybe it would be hard), so we should try and pre-process this into JSON with Python. It turns out, as always, Python has a way to do that. You can use the <a href="https://docs.python.org/2.7/library/json.html">json</a> module, convert your rows into dictionaries from column names to values, and call json.dumps() to get nicely formatted JSON. Or, you can use the sqlite3 <a href="https://docs.python.org/2/library/sqlite3.html#sqlite3.Connection.row_factory">connection.row_factory</a> function. The example provided works excellently. All I needed to change was to cast the values to strings to remove the unicode prefix.</p> 
+
+				<p><code>[{'intCommentNumber': '1', 'chvAuthor': 'ivoirians', 'chvPage': '17', 'dtmDeleted': 'None', 'dtmCreated': '2016-07-07 04:10:22', 'chvBody': 'test', 'bIsDeleted': '0'}, {'intCommentNumber': '2', 'chvAuthor': 'ivoirians', 'chvPage': '17', 'dtmDeleted': 'None', 'dtmCreated': '2016-07-07 04:11:10', 'chvBody': 'test2', 'bIsDeleted': '0'}, {'intCommentNumber': '3', 'chvAuthor': 'ivoirians', 'chvPage': '17', 'dtmDeleted': 'None', 'dtmCreated': '2016-07-07 04:11:21', 'chvBody': 'This is the third comment.', 'bIsDeleted': '0'}]</code></p>
+
+				<p> Every time I do anything, I notice something I should keep in mind for next time. In this case--because my JSON objects repeat the column names for every row returned, I should probably keep my column names shorter next time. Ah well. </p>
+
+				<p> Onto the front end. The entire task here is to take this JSON object and display it. Let's write an Angular controller.</p>
+
+				<p> A few minutes in--this will be a bit messy, because we can have as many comments as we want. There's an Angular.js <a href="https://docs.angularjs.org/api/ng/directive/ngRepeat">ngRepeat</a> directive that might help, but I'm not yet sure what the best way to go from JSON to HTML is. </p>
+
+				<p> Before we get to that--let's try to build a mechanism for actually submitting comments. I set up the Angular controller as usual, but before long we hit another easily anticipated issue: the POST data to my Python app is in a string format. I need to set up parsing on that end. Also, depending on the type of request, the data I'm looking for is alternatively in request.query_string, request.form, and request.data. Confusing, but that's what documentation is for. </p>
+
+				<div class="comment-container" ng-app="commentsApp" ng-controller="CommentController">
+					Username: <input type="text" class="username-field" ng-model="username"></input>
+					Comment: <input type="text" class="comment-field" ng-model="comment"></input>
+					<button ng-click="addComment()">Submit</button>
+				</div>
+				
+				<p> And with that last bit of implementation, we have a comment section! Everything except the display. Check it out--submit a comment and <a href="../svc/comments/get?page_number=/17/17.html">click here</a> One more hour should be enough time to get a passable looking comment section up. So, there you have it! Three hours to a working comment section.</p>
+
+				<p> The biggest lesson I've had in a little more than two weeks of doing this web dev thing? Workflow is key. Specifically, being able to rapidly debug your code is the most important thing by far. Log errors, print out line numbers in error messages, and aim for the fastest turnaround you possibly can in terms of redeploying a project. With this client-server setup, I can change a line of python, refresh my gunicorn server, and refresh a cached request in my browser to see what happened in four seconds flat. If it took me more than fifteen seconds per cycle, I'd probably lose my mind. So, that's my first real lesson to offer. </p>
+
+				<p> Last note: I should probably implement a rate-limiter now that there's a real (and easy) method of overloading my server with data. For now, I'll just clear the comment field when you hit submit so you can't submit repeatedly, forever. And I'll refuse blank submissions.
+
+			</div>
+		</div>
+	</body>
+</html>

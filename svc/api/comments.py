@@ -1,4 +1,6 @@
 import sqlite3
+import code
+import utils
 
 class Comments:
 	"""
@@ -11,13 +13,7 @@ class Comments:
 		"""
 		Returns the current value of the global counter.
 		"""
-		conn = sqlite3.connect('ivoirians.db')
-		cur = conn.cursor()
-		cur.execute("SELECT * FROM tb_Comments WHERE page_id = ?", page_id)
-		ret = cur.fetch()
-		print ret
-		conn.close()	
-		return ret
+		return utils.query("SELECT * FROM tb_Comments WHERE chvPage = ?", page_id)
 
 	@staticmethod
 	def addComment(page_id, username, comment_text):
@@ -26,21 +22,20 @@ class Comments:
 
 		Returns the new value of the counter.
 		"""
-		conn = sqlite3.connect('ivoirians.db')
-		cur = conn.cursor()
-		cur.execute("SELECT intPageNumber FROM tb_Comments WHERE intPageNumber = (SELECT MAX(intPageNumber) FROM tb_Comments WHERE chvPage = ?) AND chvPage = ?", page_id, page_id)
-		highestCommentNumber = cur.fetchone()[0]
-		cur.execute("INSERT INTO tb_Comments VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, 0, NULL)", page_id, highestCommentNumber + 1, username, comment_text)
-		conn.commit()
-		conn.close()
+		first_row = utils.query("SELECT intCommentNumber FROM tb_Comments WHERE intCommentNumber = (SELECT MAX(intCommentNumber) FROM tb_Comments WHERE chvPage = ?) AND chvPage = ?", (page_id, page_id), True)
+		highestCommentNumber = 0
+		if first_row != {}:
+			highestCommentNumber = int(first_row['intCommentNumber'])
+		utils.query("INSERT INTO tb_Comments VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, 0, NULL)", (page_id, highestCommentNumber + 1, username, comment_text))
 		return 'Success'
 
 	@staticmethod
 	def deleteComment(page_id, page_number):
 		"""Deletes the page_number-th column from comments of page_id."""
-		conn = sqlite3.connect('ivoirians.db')
-		cur = conn.cursor()
-		cur.execute("UPDATE tb_Comments SET bIsDeleted=1, dtmDeleted=CURRENT_TIMESTAMP WHERE chvPage=? AND intCommentNumber=?", page_id, page_number)
-		conn.commit()
-		conn.close()
+		utils.query("UPDATE tb_Comments SET bIsDeleted=1, dtmDeleted=CURRENT_TIMESTAMP WHERE chvPage=? AND intCommentNumber=?", (page_id, page_number))
 		return 'Success'
+
+	@staticmethod
+	def getAllComments():
+		"""Returns all comments."""
+		return utils.query("SELECT * FROM tb_Comments")
