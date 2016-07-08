@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 18 - Ivoirians</title>
+	<link rel="stylesheet" href="18.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="18.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 18 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../17/17.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../19/19.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> It's been a crazy day. I came very close to not being able to even touch this project today (because of the lack of an internet connection), but I went out of the way to still try and get my hour in. And now crazy things are happening in the news, and I need to catch up, and so on, and I think I'll do something low-intensity today.</p>
+
+				<p> We'll just work on a reusable comment section. I'd like to figure out how to automatically add it to every page without copy-pasting the same block of HTML. That might have to wait until tomorrow. Today, we'll just put together the front-end that actually displays the comments. </p>
+
+				<p> It looks like Angular handles most of it. The two challenges are to parse the JSON object returned from the server and get it into the DOM (which Angular seems to handle very conveniently), and to make the displayed comment section look nice (all up to me). I don't have access to my normal setup today, which in particular means that testing with Angular is a big pain. </p>
+
+				<p>So, with the tiny amount of time and tiny amount of internet access I have, I'll just play with some CSS.</p>
+
+				<div class="comment-section">
+				<div class="comment-header">Comments: </div>
+				<div class="comment-entry">
+					<div class = "comment-date">
+						2016-07-07 01:39:39
+					</div>
+					<div class="comment-username">
+						Ivoirians
+					</div>
+					<div class = "comment-text">
+						<p>This is the comment body. It's a couple sentences long so that I can see what a longer comment might look like. I think I need a few more sentences.</p>
+
+						<p> And maybe some line breaks. One or two might be good.</p>
+
+						<p> That's good. </p>
+					</div>
+				</div>
+				<div class="comment-entry">
+					<div class = "comment-date">
+						2016-07-07 01:41:12
+					</div>
+					<div class="comment-username">
+						Ivoirians
+					</div>
+					<div class = "comment-text">
+						<p>This is a shorter comment.</p>
+					</div>
+				</div>
+
+			</div>
+			<p> It's a real struggle--that's all I had time for. Man, I hope I have internet tomorrow. </p>
+			</div>
+		</div>
+	</body>
+</html>
