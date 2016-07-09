@@ -1,3 +1,4 @@
 #!/bin/bash
-gunicorn -b :8001 ivoiriansAPI:start
+kill `cat devServicePid`
+gunicorn -b :8001 -p devServicePid ivoiriansAPI:start
 

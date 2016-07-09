@@ -41,7 +41,9 @@
 
 				<p> I was being silly. I should have just trusted Python. json.dumps(dictionary) handles all of this single-quotes and escaping nonsense. The comment section now works, although of course there is more to be done. First that comes to mind, I went to all the excessive work of including a logical delete column, but it's completely not respected--I'll need to modify the service to not include the comment text if the comment is deleted (this has to happen server-side, because if the text is sent to the client, the client has the text that should be deleted), and include some conditional logic in Angular to handle what to display for a deleted comment. Or just have the service return a "Comment was deleted" as the string. Whatever. </p> 
 
-				<p> I'll add the necessary logic to the template file (the first new stuff in a long while). One last note: I need to fix the server timestamp. Python's using GMT/UTC instead of the PST I know and love. I guess that's actually better-I can convert UTC to the user's time-zone on the client-side, while the server holds a "truth". The only issue is, my python start script pulls the wrong date (I always start working in the last eight hours of the day). I'll just update the script and call it a night.
+				<p> I'll add the necessary logic to the template file (the first new stuff in a long while). One last note: I need to fix the server timestamp. Python's using GMT/UTC instead of the PST I know and love. I guess that's actually better-I can convert UTC to the user's time-zone on the client-side, while the server holds a "truth". The only issue is, my python start script pulls the wrong date (I always start working in the last eight hours of the day). I'll just update the script and call it a night. </p>
+
+				<p> Couldn't help my self. I didn't even fix the python date, I updated my two Gunicorn start scripts to save the PID they run on and kill any existing Gunicorn processes on startup. Makes deploying these services easier. Neato! </p>
 
 				<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
 					<div class="comment-header">Comments: </div>

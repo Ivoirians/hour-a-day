@@ -1,2 +1,3 @@
 #!/bin/bash
-gunicorn -b :8000 ivoiriansAPI:start
+kill `cat prodServicePid`
+gunicorn -b :8000 -p prodServicePid ivoiriansAPI:start 
