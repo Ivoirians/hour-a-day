@@ -154,9 +154,21 @@ button {
 	margin:0;
 }
 
+
+.comment-field {
+	width:70%;
+	height:120px;
+	margin-bottom: 10px;
+}
+
 .username-field {
 	margin:15px;
 }
+
+.comment-submit-button {
+	margin-left:60px;
+}
+
 
 .comment-section {
 
@@ -164,12 +176,6 @@ button {
 	background-color: var(--coolor-textblock);
 
 	padding-bottom:20px;
-}
-
-.comment-field {
-	width:70%;
-	height:120px;
-	margin-bottom: 10px;
 }
 
 .comment-section p{
@@ -203,5 +209,5 @@ button {
 
 }
 .comment-text {
-
+	padding:5px;
 }

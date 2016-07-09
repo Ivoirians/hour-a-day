@@ -2,15 +2,19 @@ var app = angular.module('commentsApp', []);
 var pageNumber = window.location.pathname
 app.controller('CommentController', function($scope, $http) {
 
-    $scope.comments = [];
-	$http({
-		method: 'GET',
-		url: '/svc/comments/get?page_number=' + pageNumber
-	}).then(function successCallback(response) {
-		$scope.comments = response.data;
-	}, function errorCallback(response) {
-		console.log("Service not found.")
-	});
+	var updateCommentSection = function() {
+	    $scope.comments = [];
+		$http({
+			method: 'GET',
+			url: '/svc/comments/get?page_number=' + pageNumber
+		}).then(function successCallback(response) {
+			$scope.comments = response.data;
+		}, function errorCallback(response) {
+			console.log("Service not found.")
+		});
+	};
+
+	updateCommentSection();
 
     $scope.addComment = function() {
     	if ($scope.comment)
@@ -26,7 +30,7 @@ app.controller('CommentController', function($scope, $http) {
 
 			}).then(function successCallback(response) {
 				$scope.comment = "";
-				console.log(response.data);
+				updateCommentSection();
 			}, function errorCallback(response) {
 				console.log("Service not found.")
 			});

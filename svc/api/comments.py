@@ -1,6 +1,7 @@
 import sqlite3
 import code
 import utils
+import json
 
 class Comments:
 	"""
@@ -13,7 +14,7 @@ class Comments:
 		"""
 		Returns the current value of the global counter.
 		"""
-		return str(utils.query("SELECT * FROM tb_Comments WHERE chvPage = ?", page_id)).replace('\'', '\"')
+		return json.dumps(utils.query("SELECT * FROM tb_Comments WHERE chvPage = ?", page_id))
 
 	@staticmethod
 	def addComment(page_id, username, comment_text):

@@ -35,7 +35,13 @@
 
 				<p> Immediately after setting up the ng-repeat section, we hit an issue: python's dictionary-to-JSON-to-string doesn't conform with Javascript's expected format. Specifically, python's dictionary keys have single-quotes. Javascript's evidently don't, judging by the <code>SyntaxError: Unexpected token ' in JSON at position 2</code> I'm getting. Random hunch, before we look into custom serializers--what if we replaced the single quotes with double quotes? </p>
 
-				<p> Incredibly, that worked.
+				<p> Incredibly, that worked. The comment section is working! </p>
+
+				<p> A few comments later, and I broke it with data. I entered a comment with a single-quote in it, which didn't get escaped, and so got converted to a double-quote. My first inclination for fixing this is to do some escaping to the strings as they're fetched from the database. But just escaping them will still have them converted into double-quotes.</p>
+
+				<p> I was being silly. I should have just trusted Python. json.dumps(dictionary) handles all of this single-quotes and escaping nonsense. The comment section now works, although of course there is more to be done. First that comes to mind, I went to all the excessive work of including a logical delete column, but it's completely not respected--I'll need to modify the service to not include the comment text if the comment is deleted (this has to happen server-side, because if the text is sent to the client, the client has the text that should be deleted), and include some conditional logic in Angular to handle what to display for a deleted comment. Or just have the service return a "Comment was deleted" as the string. Whatever. </p> 
+
+				<p> I'll add the necessary logic to the template file (the first new stuff in a long while). One last note: I need to fix the server timestamp. Python's using GMT/UTC instead of the PST I know and love. I guess that's actually better-I can convert UTC to the user's time-zone on the client-side, while the server holds a "truth". The only issue is, my python start script pulls the wrong date (I always start working in the last eight hours of the day). I'll just update the script and call it a night.
 
 				<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
 					<div class="comment-header">Comments: </div>
@@ -44,7 +50,7 @@
 						<br />
 						Comment: <input type="text" class="comment-field" ng-model="comment"></input>
 						<br />
-						<button ng-click="addComment()">Submit</button>
+						<button class="comment-submit-button" ng-click="addComment()">Submit</button>
 					</div>
 					<div class="comment-entry" ng-repeat="comment in comments">
 						<div class = "comment-date">
