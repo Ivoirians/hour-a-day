@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 19 - Ivoirians</title>
+	<link rel="stylesheet" href="19.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="19.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 19 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../18/18.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../20/20.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> It's still a crazy time for me, but hopefully we can finish the comment section today. </p>
+
+				<p> It doesn't take too long to throw together what we spent the last two days doing. Main problem right now: we have a list of JSON objects. We want to translate this to a series of &lt;div&gt;s. Angular has something called ng-repeat. Let's figure this out. </p>
+
+				<p> Immediately after setting up the ng-repeat section, we hit an issue: python's dictionary-to-JSON-to-string doesn't conform with Javascript's expected format. Specifically, python's dictionary keys have single-quotes. Javascript's evidently don't, judging by the <code>SyntaxError: Unexpected token ' in JSON at position 2</code> I'm getting. Random hunch, before we look into custom serializers--what if we replaced the single quotes with double quotes? </p>
+
+				<p> Incredibly, that worked.
+
+				<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
+					<div class="comment-header">Comments: </div>
+					<div class="comment-submit" >
+						Username: <input type="text" class="username-field" ng-model="username"></input>
+						<br />
+						Comment: <input type="text" class="comment-field" ng-model="comment"></input>
+						<br />
+						<button ng-click="addComment()">Submit</button>
+					</div>
+					<div class="comment-entry" ng-repeat="comment in comments">
+						<div class = "comment-date">
+							{{comment.dtmCreated}}
+						</div>
+						<div class="comment-username">
+							{{comment.chvAuthor}}
+						</div>
+						<div class = "comment-text">
+							{{comment.chvBody}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -13,7 +13,7 @@ class Comments:
 		"""
 		Returns the current value of the global counter.
 		"""
-		return utils.query("SELECT * FROM tb_Comments WHERE chvPage = ?", page_id)
+		return str(utils.query("SELECT * FROM tb_Comments WHERE chvPage = ?", page_id)).replace('\'', '\"')
 
 	@staticmethod
 	def addComment(page_id, username, comment_text):
@@ -24,7 +24,7 @@ class Comments:
 		"""
 		first_row = utils.query("SELECT intCommentNumber FROM tb_Comments WHERE intCommentNumber = (SELECT MAX(intCommentNumber) FROM tb_Comments WHERE chvPage = ?) AND chvPage = ?", (page_id, page_id), True)
 		highestCommentNumber = 0
-		if first_row != {}:
+		if first_row:
 			highestCommentNumber = int(first_row['intCommentNumber'])
 		utils.query("INSERT INTO tb_Comments VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, 0, NULL)", (page_id, highestCommentNumber + 1, username, comment_text))
 		return 'Success'

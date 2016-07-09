@@ -4,3 +4,6 @@ svc/venv
 /.cache
 .sqlite_history
 .bash_history
+.gitconfig
+.viminfo
+/svc/ivoirians.db
