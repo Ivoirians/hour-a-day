@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 20 - Ivoirians</title>
+	<link rel="stylesheet" href="20.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="20.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 20 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../19/19.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../21/21.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<h2> Status </h2>
+				<p> So, the great thing is, a large portion of the process is no longer a mystery. Developing this website is no longer a mystery of services and hooking together interfaces and running random programs--it's about code! Any app I could want to create, I have the infrastructure to create it in a combination of back-end Python and front-end Javascript. I can't stress enough how great that is. Front-end development can be more about programming than about installing programs (which, if you've been following along--it's mostly been installing programs so far.)</p>
+
+				<p> The one missing link is socket communication. I can make a multiplayer game, if it's turn-based. I can even make a chatroom, maybe by polling for new messages repeatedly. But for a fast multiplayer game, or anything requiring real-time updates--I need to figure out sockets. I'm curious about socket.io for now, but either Gunicorn or Werkzeug or Flask or whatever should also have some sort of back-end support? I don't know how it works. I think both the back and the front end need some kind of framework for handling sockets. </p>
+
+				<p> But then there are other fun things I can do now with these newfound powers. I think it should be very straightforward to make a simple multiplayer game now, like a card game. I can put my security knowledge to the test and try building out a custom authentication system. I can even focus on the comment system, make it nicer, add features, fix bugs, and build the next Disqus. Or, I could focus on workflow--improve the amateurish CMS I have right now, start using/building modules, switch to Typescript, write some documentation--things that service bigger, more complex projects. </p>
+
+				<p> My inclination is to stay away from bigger complex projects for now, because then I will move away from "learning web dev" and enter "spend every day fixing bugs in a massive programming project", and every post every day will be "I continued working on my game." So I think the natural next step is to figure out sockets. Today's been yet another hectic day, so we'll make it a reading/information gathering day. </p>
+
+				<p> First point of investigation: what are web sockets? Web sockets are communication channels over a TCP connection. Whereas HTML request are one-way (one side sends a request, the other sends a response), sockets facilitate two-way communication. </p>
+
+				<p> Socket.io is... I defy you to read the <a href="http://socket.io/">Socket.io</a> website and find an actual description of what it is. "Socket.IO enables real-time bidirectional event-based communication." That's what I just said WebSockets in general does. Does it require node? Does it run on the server or on the client? These questions might be obvious, but you'd think I could figure it out from the site.</p>
+
+				<p> Google informs me Socket.IO has a client-side and a server-side library. The server-side library uses node.js. I'm wondering to myself--do I need to use this at all? Why is Socket.IO the go-to library whenever people discuss WebSockets? Is it just a sign that node.js has taken over the internet? </p>
+
+				<p> Python has a <a href="https://websockets.readthedocs.io/en/stable/">websockets</a> library. Requires Python 3.4. That's a little scary. It may be unnecessary.</p>
+
+				<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications">WebSockets</a> seem easy enough to use on the client-side with vanilla JS. Hard to imagine why anyone would want to use Socket.IO, it's that easy. Python also has a <a href="https://docs.python.org/2/library/socket.html">socket module</a>, distinct from the websockets module. Seems slightly harder to use. This <a href="http://yz.mit.edu/wp/web-sockets-tutorial-with-simple-python-server/">tutorial</a> seems useful, though. We'll try following through it tomorrow.</p>
+			</div>
+			<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
+					<div class="comment-header">Comments: </div>
+					<div class="comment-submit" >
+						Username: <input type="text" class="username-field" ng-model="username"></input>
+						<br />
+						Comment: <input type="text" class="comment-field" ng-model="comment"></input>
+						<br />
+						<button class="comment-submit-button" ng-click="addComment()">Submit</button>
+					</div>
+					<div class="comment-entry" ng-repeat="comment in comments">
+						<div class = "comment-date">
+							{{comment.dtmCreated}}
+						</div>
+						<div class="comment-username">
+							{{comment.chvAuthor}}
+						</div>
+						<div class = "comment-text">
+							{{comment.chvBody}}
+						</div>
+					</div>
+				</div>
+
+		</div>
+	</body>
+</html>
