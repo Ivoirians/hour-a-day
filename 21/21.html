@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 21 - Ivoirians</title>
+	<link rel="stylesheet" href="21.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="21.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 21 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../20/20.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../22/22.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> So, today we look into sockets. </p>
+
+				<p> All I've really done so far was play <a href="http://slither.io/">slither.io</a> for fifteen minutes. But I was trying to answer one question--how do you build such a massively multiplayer web game? One with 400 players on the same server. Netcode in general is a very difficult topic, since video game development is intertwined with the history of software development, and industry giants spent a ton of time working on mitigating the unfortunate truth that things take time to go across the internet. So I'm going to try to avoid thinking about lag compensation or prediction at this point--anything I make will probably be pure and simple "the server is the authority". The question I'm thinking about with regard to slither.io (and similar games) is, how do you simply keep hundreds of connections all relatively in sync with each other? </p>
+
+				<p> If you start a network-trace and start a game of slither.io, the answer is clear: web-socket packets, close to one hundred per second, each a few bytes, each encoding the data of "this event was just triggered" and "this player has moved in this direction." It's actually kind of impressive. I'll speculate at first--the actual server might not do much processing at all. If I were to naively rebuild this game, my server would do the absolute minimum amount of processing. Ideally, all it would have to do is route button-presses--a player pushes a button, the server receives the input, the server sends the same button-press to every other player through web sockets. The client would handle all of the rendering. Ignoring lag (again), this should work if the game-state were known to everybody, although I'm not an expert by any means. But slither.io doesn't allow a player to view the entire game-state at once. You don't know a player is nearby until the server tells you they are. So the server for this game would need to do some kind of processing, keeping track of each player's position, and letting the client know when a player approaches and is within their field of view. </p>
+
+				<p> So, the takeaway is--I want to try building two games. One will have a "server is authority" model, where you make a button press, it goes to the server, and the server tells you what the new game-state is. This works for basically anything that doesn't depend on instant responsiveness, which unfortunately is a lot of games. The second game will be massively multiplayer and real-time. I'm thinking a game like Snake, or Tron. So basically slither.io, but on a grid, and the whole game-state is publicly known, and with no graphics. Well, none of these games will have graphics. I don't know graphics. That'll be an entirely different hour-a-day project. </p>
+
+				<p> Time to stop putting it off. </p>
+
+				<p> WebSockets </p>
+
+				<p> The entire concept here is, your client will have a WebSocket interface, and your server will have a WebSocket interface, and they'll communicate. We already know how the front-end interface will work--you'll have a Javascript function with a callback. You open the socket, your write data to it, and you read data from it and execute the callback, which processes the data. That makes sense to me conceptually.</p>
+
+				<p> The server is what I'm unsure about right now. I could probably write a standalone Python program (or C program, or any program) that keeps a socket open and communicates with sessions. But... isn't that supposed to go through my HTTP server? So do I create a new server and point nginx at it, or does gunicorn support an additional websocket handler, or does Werkzeug handle these requests as well? A quick search should clear this up... </p>
+
+				<p> First note: WSGI does not support websockets. So Werkzeug is out. That immediately introduces a huge pain, actually--i think that implies that this new app cannot be written in Python (unless I create the standalone HTTP server for this service, and bypass gunicorn, and point nginx at it). Isn't it wonderful how, in the world of web dev, you'll work and set things up and then, a long way down the line, you'll realize your set-up simply doesn't work for an intended purpose? Like, there are always workarounds, but the entirety of the web development codebase is just workarounds. Every single named project, from Javascript to jQuery to CSS to PHP to Node to React to Angular to CoffeeScript to TypeScript--every single one exists to get around some silly limitation in some other library.</p>
+
+				<p> It's still amazing what you can create. I just can't stop fighting the idea that, undoubtedly, if we started over, scrapped the entire web, and defined new standards and frameworks, everything would be beautiful. </p>
+
+				<p> Maybe I don't need to ditch gunicorn--I can still run multiple servers on different ports. There is a python library called <a href="https://pypi.python.org/pypi/gevent-websocket">gevent-websocket</a> which integrates well. After installing it, I'm going to try to update that really simple app that keeps returning: the global counter. First off, that entails moving the counter logic out of our current /svc location--but I'll leave the existing one, and we'll put a new service in /ws, for websocket. I don't know if this is how anyone actually does this.</p>
+
+				<p> (At a glance, slither.io uses "ws://199.21.79.248:444/slither" as their websocket server. So maybe I'm not so far off.) </p>
+
+				<p> Gah, it's 11:50, so we're basically out of time for today despite not having done anything. I'm confident this is only a temporary lull in our progress (I spent half of each day every day the last four days moving into a new apartment), and we'll have the sockets set up by tomorrow. </p>
+
+				<p> For a look into the future, here's what's coming up on our radar: authentication, session management, security, https/TLS/SSL, cookies, and keys. Exciting. </p>
+				
+
+			</div>
+			<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
+				<div class="comment-header">Comments: </div>
+				<div class="comment-submit" >
+					Username: <input type="text" class="username-field" ng-model="username"></input>
+					<br />
+					Comment: <input type="text" class="comment-field" ng-model="comment"></input>
+					<br />
+					<button class="comment-submit-button" ng-click="addComment()">Submit</button>
+				</div>
+				<div class="comment-entry" ng-repeat="comment in comments">
+					<div class = "comment-date">
+						{{comment.dtmCreated}}
+					</div>
+					<div class="comment-username">
+						{{comment.chvAuthor}}
+					</div>
+					<div class = "comment-text">
+						{{comment.chvBody}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
