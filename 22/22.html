@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 22 - Ivoirians</title>
+	<link rel="stylesheet" href="22.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="22.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 22 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../21/21.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../23/23.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> It's been a frustrating day. I'm running a server, but there's exactly <a href="https://pypi.python.org/pypi/gevent-websocket">one example</a> of someone a gevent/gunicorn handler on the internet, and when I encounter an error I find about 8 results on Google, none of which actually are my error. </p>
+
+				<p><a href="http://stackoverflow.com/questions/18871250/using-gunicorn-raises-keyerror-wsgi-websocket?rq=1">For tomorrow's reference</a>. I'm just trying to get in a commit before midnight today.</p>
+			</div>
+			<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
+				<div class="comment-header">Comments: </div>
+				<div class="comment-submit" >
+					Username: <input type="text" class="username-field" ng-model="username"></input>
+					<br />
+					Comment: <input type="text" class="comment-field" ng-model="comment"></input>
+					<br />
+					<button class="comment-submit-button" ng-click="addComment()">Submit</button>
+				</div>
+				<div class="comment-entry" ng-repeat="comment in comments">
+					<div class = "comment-date">
+						{{comment.dtmCreated}}
+					</div>
+					<div class="comment-username">
+						{{comment.chvAuthor}}
+					</div>
+					<div class = "comment-text">
+						{{comment.chvBody}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
