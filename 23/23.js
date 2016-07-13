@@ -37,3 +37,13 @@ app.controller('CommentController', function($scope, $http) {
 		}
 	};
 });
+
+var s = new WebSocket("ws://dev.ivoirians.me/ws/echo");
+s.onmessage = function(evt) {console.log(evt) };
+s.onerror = function(evt) {console.log(evt) };
+s.onclose = function(evt) {console.log(evt) };
+
+
+s.send("hi");
+s.send("hello");
+s.send("what's up");

@@ -34,6 +34,8 @@
 <p> About twenty minutes in, I got the socket working, but hit an error where after a single round trip the socket would close. Another twenty minutes, I went home. When I started up the server again, the socket wasn't working with the same KeyError wsgi.websockets issue again. And now I can't fix it. </p>
 
 <p> I told myself I needed to commit something every day before midnight, so that's why I'm here rushing this out. This is frustrating, though. Maybe I'll move away from Python entirely. </p>
+
+<p> Update: 40 more minutes later, it works! I just needed to throw the logic in a loop, instead of blindly relying on gunicorn to handle keeping the socket open. So now we're finally in good shape.</p>
 				
 </div>
 			<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
