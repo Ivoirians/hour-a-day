@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 24 - Ivoirians</title>
+	<link rel="stylesheet" href="24.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="24.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 24 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../23/23.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../25/25.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p>So at the end of yesterday we actually got our WebSocket working. The problem was that I didn't actually put the handler in a loop--it just finished echoing the result and terminated, which closed the socket. But now, I've got it in a loop, reading from the socket, and a separate thread could potentially write to the socket.</p>
+
+				<p> I really need to sit down and figure this step out--I have a function that is called whenever a client opens a socket with my server. I can have that function spin off a few threads--one can wait for socket-read events and one can monitor some server resource for updates before writing to the client. This doesn't seem like a good idea <a href="http://stackoverflow.com/questions/487229/client-server-programming-in-python">[1]</a> though, and the suggested alternative is to loop through all of the open sockets and handle them asynchronously. <a href="https://pypi.python.org/pypi/django-gevent-websocket/0.1.0">This link</a> contains some useful samples that might come in handy. </p>
+
+				<p> We're kind of in murky waters at this point now, though. Our stack is at the point where not a lot of people are trying to do what I'm doing. And it may be useful to switch to some other stack (like Node) soon. Basically, since I can't find good tutorials about how to do good socket management, I'm going to dive into it headfirst and trust that I'll be able to make sense of the fall out, and hopefully learn something. </p>
+
+				<h2> Global Counter </h2>
+				<p> When we last left our counter, it was sorely lacking exactly one desired feature. If the value of the counter changed (for any reason), it should ideally change on the client as well. Our first question is--what's the best way to handle this? Currently we're using GET and POST requests. Those go to a gunicorn service running a Python program and handling HTTP requests on port :8001. Now, we're adding a second gunicorn service running a different Python program managing sockets on port :8002. If we leave the first service alone, we'll have to do something fancy to communicate cross-application. I'm curious about whether there are other options to write to all open sockets whenever an HTTP request is received. </p>
+
+				<p> More likely, at the same time a GET request happens, we could send a message across a socket. So now I essentially have two different servers handling requests for the same pages. But we can work with that. </p>
+
+				<p> So, naively: we add one socket-read result. A socket is opened whenever someone visits a page. When someone clicks the button, write "click" to the socket. The server receives a click and knows to write to every other open socket some event ("click_received"). On each client, when the opened socket received a "click_received", update the counter value. </p>
+
+				<p> Certainly, the socket communication itself can include the new counter value and save a round trip. I currently feel like this option is better in the long run, for more complex use cases. My reasoning is, I'm already writing out the necessary logic for my HTTP responses. Specifically, the database read logic. I can keep that all in one place by having my sockets only notify the browser <b> when </b> something happens as opposed to <b>what</b>. This probably isn't scalable, but it feels neater for now. It also feels like, if I'm putting some server logic in the sockets, why not just put 100% of my server logic there? And that's a serious question--why do we need XHR requests at all? Why not just ship everything through WebSockets? There are some <a href="http://stackoverflow.com/questions/16278043/websockets-vs-xhr-for-large-amounts-of-data">discussions online,</a> and overall I'm making a lot of assumptions here. Like the wonderful "the two different things wouldn't exist if one were better than the other. WebSockets are better for bidirectional communication, therefore, XHR requests must be better in other cases. Maybe I'm wrong and WebSockets are 100% better and I should stick to using them exclusively.</p>
+
+				<p> We can figure that out later, but I'll table it as the foremost burning question on my mind. For now, one service listening for a write, before writing to all sockets about an update.</p>
+
+				<p> Even this is harder than it looks. Gunicorn/Gevent forks a new worker for each connection it receives. So even inside my socket listening server, I can't easily/globally manage the sockets. Here's a link with <a href="https://github.com/benoitc/gunicorn/issues/1026">a possible solution</a>--use something fancy to share data across applications. Specifically, redis. Redis is nice enough, but this is what I find that I hate about web development. The fact that to solve this single problem, a proposed solution is to install API-Hour, aiohttp.web, and ayncio_redis, and add three libraries I don't totally understand to my development environment. </p>
+
+				<p> Man, I thought I could finish this counter by today. Close to 25% of all of the time I've spent on this website has now been to figure out WebSockets with Python. </p>
+
+				<p> I'm removing the comment section to reduce clutter, and because as previously mentioned, I hate the idea of comment sections. If you dislike this idea, comment below. </p>
+
+			</div>
+			<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
+				<div class="comment-header">Comments: </div>
+				<div class="comment-submit" >
+					Username: <input type="text" class="username-field" ng-model="username"></input>
+					<br />
+					Comment: <input type="text" class="comment-field" ng-model="comment"></input>
+					<br />
+					<button class="comment-submit-button" ng-click="addComment()">Submit</button>
+				</div>
+				<div class="comment-entry" ng-repeat="comment in comments">
+					<div class = "comment-date">
+						{{comment.dtmCreated}}
+					</div>
+					<div class="comment-username">
+						{{comment.chvAuthor}}
+					</div>
+					<div class = "comment-text">
+						{{comment.chvBody}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
