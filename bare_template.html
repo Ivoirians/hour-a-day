@@ -30,27 +30,6 @@
 			</div>
 			<div id="content">
 			</div>
-			<div class="comment-section" ng-app="commentsApp" ng-controller="CommentController">
-				<div class="comment-header">Comments: </div>
-				<div class="comment-submit" >
-					Username: <input type="text" class="username-field" ng-model="username"></input>
-					<br />
-					Comment: <input type="text" class="comment-field" ng-model="comment"></input>
-					<br />
-					<button class="comment-submit-button" ng-click="addComment()">Submit</button>
-				</div>
-				<div class="comment-entry" ng-repeat="comment in comments">
-					<div class = "comment-date">
-						{{comment.dtmCreated}}
-					</div>
-					<div class="comment-username">
-						{{comment.chvAuthor}}
-					</div>
-					<div class = "comment-text">
-						{{comment.chvBody}}
-					</div>
-				</div>
-			</div>
 		</div>
 	</body>
 </html>

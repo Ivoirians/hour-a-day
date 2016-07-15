@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 25 - Ivoirians</title>
+	<link rel="stylesheet" href="25.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="25.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 25 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../24/24.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../26/26.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> I figured it out after a good amount of research and digging through source code. What I was looking for was "ws.handler.server.clients.values()", which returns a list of open websockets. Hallelujah. </p>
+
+				<p> It's still a little bit of a mess keeping sockets open. I basically need to take a crash course on gevent.pywsgi. And while everything's lined up for the taking, I can't shake the feeling that I could be better using this time to do something that isn't so needlessly specific. I'm not exactly learning useful things about web design by trying to work out the idiosyncracies of this library with maybe 10 thousand lifetime users. So I'm going to go ahead and pull an example gevent-websocket application with a standalone server, abandoining Gunicorn and good coding-practice (which depresses me to say out loud). </p>
+
+				<p> A good hour later, I've figured out the intricacies of converting a Javascript object to a JSON string with "JSON.stringify()" before sending it to the server. Now I have an <a href="../svc/globalCounter.py">application</a> which I recommend taking a look at. It's very simple--if it receives a json object with "message_type" : "increment", it also sends to all open sockets a json object with "message_type" : "notify_increment". Not a lot to it.</p>
+
+				<p> Naturally, all we need to do is update the client with some extra logic. When the page is opened, we open a socket with the server. When the user increments the button, in addition to the XHR request, we also send an increment message over the socket. When we receive a message over the socket, we know we should make an XHR request to update the button. </p>
+
+				<div id="basic-counter-app" ng-app="counterApp" ng-controller="CounterController">
+					<button id="counter_button" ng-click="addCounter()">Click.</button>
+					<p id="counter_value">{{counter}}</p>
+				</div>
+
+				<p> We're almost there... I'm getting a "No apps defined" exception, which means that I'm not routing the socket correctly (probably because I left Gunicorn). More source code digging will be necessary tomorrow. </p>
+			</div>
+		</div>
+	</body>
+</html>
