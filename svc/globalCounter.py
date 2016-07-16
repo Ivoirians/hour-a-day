@@ -7,7 +7,7 @@ class CounterApplication(WebSocketApplication):
 
     def on_message(self, message):
         if message is None:
-	   return
+            return
         message = json.loads(message)
 
         if message['message_type'] == 'increment':
@@ -15,15 +15,21 @@ class CounterApplication(WebSocketApplication):
 
     def broadcast(self, message):
         for client in self.ws.handler.server.clients.values():
-            client.ws.send(json.dumps({
+	    client.ws.send(json.dumps({
                 'message_type': 'increment_notification'
 		}))
 
     def on_close(self, reason):
         print "Client disconnected."
 
-WebSocketServer(
-    ('0.0.0.0', 8002),
-    Resource({'/ws/counter': CounterApplication}),
-    debug=False
-).serve_forever() 
+        
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
+    WebSocketServer(
+        ('0.0.0.0', 8003),
+        Resource({'.*': CounterApplication}),
+        debug=False
+    ).serve_forever() 
+
+main()

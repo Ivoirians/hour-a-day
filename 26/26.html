@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 26 - Ivoirians</title>
+	<link rel="stylesheet" href="26.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="26.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 26 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../25/25.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../27/27.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p> I've already spent a full hour trying to figure out why this isn't working. I'm going to download an example online to see if the problem is with nginx, gunicorn, or me. </p>
+
+				<div id="basic-counter-app" ng-app="counterApp" ng-controller="CounterController">
+					<button id="counter_button" ng-click="addCounter()">Click.</button>
+					<p id="counter_value">{{counter}}</p>
+				</div>
+
+				<p> I got it working. You can open this counter in multiple windows, click one, and the others will increment. It was fun. But I'm so tired. Also, I haven't had time to make the socket handler consistent. </p>
+			</div>
+		</div>
+	</body>
+</html>
