@@ -1,4 +1,5 @@
 from geventwebsocket import WebSocketServer, WebSocketApplication, Resource
+import sys
 import json
 
 class CounterApplication(WebSocketApplication):
