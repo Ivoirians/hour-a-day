@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Day 29 - Ivoirians</title>
+	<link rel="stylesheet" href="29.css" />
+	<link rel="icon" href="../favicon32.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="29.js"></script>
+</head>
+	<body>
+		<div id="container" class="fullheight">
+			<header>
+			<a href="../index.html"><img id="header-image" src="../favicon128.png" alt="favicon"></a>
+			<h1> Day 29 </h1>
+			</header>
+			<div id="sidebar" class="fullheight">
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../28/28.html">Previous</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../index.html">Index</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="../30/30.html">Next</a>
+				</div>
+				<div class="sidebar-link">
+					<a class="sidebar-link" href="https://github.com/Ivoirians/hour-a-day">Github</a>
+				</div>
+			</div>
+			<div id="content">
+				<p>We're back. And I honestly need to bring back some of whatever it was that motivated me to start this project in the first place. So, let's plan out a new project. </p>
+
+				<h2>Game Rooms</h2>
+				<p> Simple idea: you hit the page, and you're shown a list of rooms. You can join an existing room, or create a new room. Maybe, once in a room, you can obtain a URL that allows others to jump straight into the same room. If that turns out to be difficult, Once in a room, you can play a game!</p>
+
+				<p> That's a simple concept. Now we can try to outline the amount of work I'll need to do. </p>
+
+				<h3>Database</h3>
+				<p>The things we need to persist are exactly the rooms. Each room will be uniquely identified somehow--either a GUID, or some random string of ~10 alphanumeric characters?</p>
+
+				<p>Short digression into unique IDs: it's fascinating how hard it is for "properly-generated" GUIDs to collide. There are 2^122 unique GUIDs, which is 5*10^36. Meanwhile, a random string of 10 alphanumeric characters should still contain enough entropy to make collisions unlikely, since (26 + 10)^10 is three quadrillion, and even taking the birthday paradox into account, the probability of a collision with one million IDs is around 1 in 30 billion. A billion IDs have a probability of collision that's approximately 1 in 30 million. bit.ly uses ~7 alphanumeric chracters to distinguish their sites, but they probably rigorously refresh/retire old IDs.</p>
+
+				<p> Anyway. Rooms will have IDs. With a traditional relational database, you could have a single table called "rooms" with the roomId and various generic fields, dateCreated, lastModified, isDeleted, gameType, etc. Then you'd have separate tables, in this case maybe just one, mapping roomIds to userIds. </p>
+
+				<p> Oh snap. UserIds. That unlocks an entire world of pain. But from the database's point of view, we'll just assume the client manages to pass along a userId for each player. Some userIds may be temporary, some may correspond to user accounts. So we need to start designing a users table. Potential columns I can think of off the top of my head: isTemporary, emailAddress, passwordHash (!). </p>
+
+				<p> One last table: we probably want to save the game state for a given room. Does it go in its own table? Maybe we'll also link the game room to a game ID and a game type. Then, for each game type, we create a table with useful information about the game state. </p>
+
+				<h3> Frontend </h3>
+				<p> With any project, I find the easiest thing to do is to start at the endpoints, figure out all your inputs and outputs, and then work your way towards the middle. So, having figured out the database endpoints, what do we need to do be able to do in the frontend? </p>
+
+				<h4> User Sessions </h4>
+				<p>Sessions need to be stored in cookies. We'll need to create a cookie for any user who comes to the site. The cookie will store the sessionId, which for now would be the same as a userId (why do we need sessions for this site?) It would be nice to have a separate session concept, so that a user can join a game, then decide to register/log in, and then they won't have to rejoin the game. Or perhaps backend logic can work that out.</p>
+
+				<h4>Authentication </h4>
+
+				<p>This is my first ever authentication task. I took a security class and have some basic conceptions about what to do. Don't do anything with the password in plaintext. Don't even encrypt the password and send it across the internet. Hash it immediately on the client, and store the hash. You (yes you) shouldn't trust any website that doesn't do this. If they encrypt your password and store it (you could potentially check this by looking through the client-side code), there is absolutely nothing preventing a malicious developer working on the website from unencrypting your password. And you certainly don't generate a new password for every site you visit (despite that being the best practice).</p>
+
+				<p> Besides that, I just need to go find some JS AES libraries or something, and this should be straightforward. </p>
+
+				<h4> Design </h4>
+				<p>Oh jeez we're going to need to design a lot of stuff. Lots of different JSON objects will need to be converted to HTML. That'll take a while. </p>
+
+				<h4> Game </h4>
+				<p>Planning on building a game with HTML5 and the canvas. In the meantime, maybe I'll make a real-time rock paper scissors multiplayer game.</p>
+
+				<p> Tomorrow we're going to check out that backend, and start writing this stuff out.</p>
+		</div>
+	</body>
+</html>
